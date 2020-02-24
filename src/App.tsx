@@ -4,11 +4,16 @@ import StyledLogo from "./Logo";
 import styled from "styled-components";
 
 // 2. Types Layer
+type ContainerProps = {
+  status?: boolean;
+  handleClick?: () => void;
+};
+
 type Props = {
   // When defining a component you will need to mark className as optional in your Props
   // https://styled-components.com/docs/api#caveat-with-classname
   className?: string;
-};
+} & ContainerProps;
 
 // 3. DOM Layer
 const App: React.FC<Props> = props => {
@@ -16,6 +21,7 @@ const App: React.FC<Props> = props => {
     <div>
       <header className={props.className}>
         <StyledLogo />
+
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -27,6 +33,10 @@ const App: React.FC<Props> = props => {
         >
           Learn React
         </a>
+
+        <button onClick={props.handleClick}>
+          {props.status ? "click me" : "CLICK ME"}
+        </button>
       </header>
     </div>
   );
@@ -50,4 +60,15 @@ const StyledApp = styled(App)`
   }
 `;
 
-export default StyledApp;
+// 5. Container Layer
+const AppContainer: React.FC<ContainerProps> = props => {
+  // State Management
+  const [status, setStatus] = React.useState(false);
+  const handleClick = React.useCallback(() => {
+    setStatus(!status);
+  }, [status]);
+
+  return <StyledApp {...props} status={status} handleClick={handleClick} />;
+};
+
+export default AppContainer;

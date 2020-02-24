@@ -4,11 +4,15 @@ import logo from "./logo.svg";
 import styled from "styled-components";
 
 // 2. Types Layer
+type ContainerProps = {
+  status?: boolean;
+};
+
 type Props = {
   // When defining a component you will need to mark className as optional in your Props
   // https://styled-components.com/docs/api#caveat-with-classname
   className?: string;
-};
+} & ContainerProps;
 
 // 3. DOM Layer
 const Logo: React.FC<Props> = props => {
