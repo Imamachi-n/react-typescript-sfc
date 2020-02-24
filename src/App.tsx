@@ -1,12 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// 1. Import Layer
+import React from "react";
+import StyledLogo from "./Logo";
+import styled from "styled-components";
 
-const App: React.FC = () => {
+// 2. Types Layer
+type Props = {
+  // When defining a component you will need to mark className as optional in your Props
+  // https://styled-components.com/docs/api#caveat-with-classname
+  className?: string;
+};
+
+// 3. DOM Layer
+const App: React.FC<Props> = props => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div>
+      <header className={props.className}>
+        <StyledLogo />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -21,6 +30,24 @@ const App: React.FC = () => {
       </header>
     </div>
   );
-}
+};
 
-export default App;
+// 4. Style Layer
+const StyledApp = styled(App)`
+  text-align: center;
+
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
+  .App-link {
+    color: #61dafb;
+  }
+`;
+
+export default StyledApp;
