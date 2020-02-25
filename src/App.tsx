@@ -1,7 +1,8 @@
 // 1. Import Layer
 import React from "react";
-import StyledLogo from "./Logo";
+import StyledLogo from "./components/Logo";
 import styled from "styled-components";
+import GlobalStyle from "./style/baseStyle";
 
 // 2. Types Layer
 type ContainerProps = {
@@ -19,6 +20,7 @@ type Props = {
 const App: React.FC<Props> = props => {
   return (
     <div>
+      <GlobalStyle />
       <header className={props.className}>
         <StyledLogo />
 

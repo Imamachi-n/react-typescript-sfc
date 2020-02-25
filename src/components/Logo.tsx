@@ -1,6 +1,6 @@
 // 1. Import Layer
 import React from "react";
-import logo from "./logo.svg";
+import logo from "../img/logo.svg";
 import styled from "styled-components";
 
 // 2. Types Layer
