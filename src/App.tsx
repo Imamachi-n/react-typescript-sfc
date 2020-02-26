@@ -2,7 +2,7 @@
 import React from "react";
 import StyledLogo from "./components/Logo";
 import styled from "styled-components";
-import GlobalStyle from "./style/baseStyle";
+import GlobalStyle from "./styles/baseStyle";
 
 // 2. Types Layer
 type ContainerProps = {
