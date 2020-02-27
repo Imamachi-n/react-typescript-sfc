@@ -9,6 +9,15 @@ npx create-react-app react-typescript-sfc --template typescript
 Adding TypeScript  
 <https://create-react-app.dev/docs/adding-typescript/>
 
+#### React Router の導入
+
+```bash
+yarn add react-router-dom @types/react-router-dom
+```
+
+React Router - Quick Start  
+<https://reacttraining.com/react-router/web/guides/quick-start>
+
 #### Redux を React に導入
 
 ```bash
