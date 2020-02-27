@@ -1,8 +1,8 @@
 // 1. Import Layer
-import React from "react";
-import StyledLogo from "./components/Logo";
-import styled from "styled-components";
-import GlobalStyle from "./styles/baseStyle";
+import React from 'react';
+import StyledLogo from './components/Logo';
+import styled from 'styled-components';
+import GlobalStyle from './styles/baseStyle';
 
 // 2. Types Layer
 type ContainerProps = {
@@ -37,7 +37,7 @@ const App: React.FC<Props> = props => {
         </a>
 
         <button onClick={props.handleClick}>
-          {props.status ? "click me" : "CLICK ME"}
+          {props.status ? 'click me' : 'CLICK ME'}
         </button>
       </header>
     </div>

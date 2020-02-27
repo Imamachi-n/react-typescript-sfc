@@ -1,4 +1,4 @@
-import { Reducer } from "redux";
+import { Reducer } from 'redux';
 import {
   CREATE_TODO,
   ADD_TODO,
@@ -7,8 +7,8 @@ import {
   createTodo,
   addTodo,
   updateTodo,
-  deleteTodo
-} from "./action";
+  deleteTodo,
+} from './action';
 
 // Type
 type Action = ReturnType<
@@ -23,42 +23,43 @@ type State = {
 // Initial State
 const initialState = {
   id: 1,
-  message: "",
-  todoList: []
+  message: '',
+  todoList: [],
 };
 
 // Reducer
 const manageTodoList: Reducer<State, Action> = (
   state = initialState,
-  action
+  action,
 ) => {
   switch (action.type) {
     case CREATE_TODO: {
       return {
         ...state,
-        message: action.message
+        message: action.message,
       };
     }
     case ADD_TODO: {
       return {
         ...state,
-        message: action.message
+        message: action.message,
       };
     }
     case UPDATE_TODO: {
       return {
         ...state,
-        message: action.message
+        message: action.message,
       };
     }
     case DELETE_TODO: {
       return {
         ...state,
-        message: ""
+        message: '',
       };
     }
     default: {
       const _: never = action; // eslint-disable-line
+
       return state;
     }
   }
