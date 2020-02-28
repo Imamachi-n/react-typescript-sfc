@@ -2,6 +2,39 @@
 
 経年劣化に耐える React のソフトウェア設計を考えるためのサンプルプロジェクト。参考資料で示した Qiita の記事を大いに参考にしました。
 
+## 目次
+
+<!-- TOC -->
+
+- [Typescript & React で Single File Components](#typescript--react-%e3%81%a7-single-file-components)
+  - [目次](#%e7%9b%ae%e6%ac%a1)
+  - [詳細](#%e8%a9%b3%e7%b4%b0)
+    - [TypeScript & React のプロジェクトを作成](#typescript--react-%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90)
+    - [ESLint & Prettier の導入](#eslint--prettier-%e3%81%ae%e5%b0%8e%e5%85%a5)
+      - [eslint-config-airbnb](#eslint-config-airbnb)
+      - [eslint-plugin-react](#eslint-plugin-react)
+      - [eslint-plugin-react-hooks](#eslint-plugin-react-hooks)
+      - [eslint-plugin-import](#eslint-plugin-import)
+      - [eslint-plugin-jsx-a11y](#eslint-plugin-jsx-a11y)
+      - [eslint-plugin-jest](#eslint-plugin-jest)
+      - [eslint-plugin-prefer-arrow](#eslint-plugin-prefer-arrow)
+      - [@typescript-eslint](#typescript-eslint)
+      - [@typescript-eslint/parser](#typescript-eslintparser)
+      - [@typescript-eslint/eslint-plugin](#typescript-eslinteslint-plugin)
+      - [eslint-plugin-prettier](#eslint-plugin-prettier)
+    - [husky & lint-staged の導入](#husky--lint-staged-%e3%81%ae%e5%b0%8e%e5%85%a5)
+    - [Redux を React に導入](#redux-%e3%82%92-react-%e3%81%ab%e5%b0%8e%e5%85%a5)
+    - [React Router の導入](#react-router-%e3%81%ae%e5%b0%8e%e5%85%a5)
+    - [React Router と Redux の統合](#react-router-%e3%81%a8-redux-%e3%81%ae%e7%b5%b1%e5%90%88)
+    - [Global CSS を指定する方法](#global-css-%e3%82%92%e6%8c%87%e5%ae%9a%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95)
+    - [複数の reducer を結合する](#%e8%a4%87%e6%95%b0%e3%81%ae-reducer-%e3%82%92%e7%b5%90%e5%90%88%e3%81%99%e3%82%8b)
+  - [参考資料](#%e5%8f%82%e8%80%83%e8%b3%87%e6%96%99)
+  - [公式ドキュメント](#%e5%85%ac%e5%bc%8f%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88)
+
+<!-- /TOC -->
+
+## 詳細
+
 ### TypeScript & React のプロジェクトを作成
 
 ```bash
@@ -33,7 +66,7 @@ eslint-plugin-prettier \
 @types/eslint-plugin-prettier
 ```
 
-#### 1. eslint-config-airbnb
+#### eslint-config-airbnb
 
 AirBnb が提供する ESLint の有名な共通設定を導入する。
 `eslint-config-airbnb` を導入する際、以下のパッケージが必要になる。
@@ -48,7 +81,7 @@ AirBnb が提供する ESLint の有名な共通設定を導入する。
 eslint-config-airbnb の導入  
 <https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb#eslint-config-airbnb-1>
 
-#### 1.1. eslint-plugin-react
+#### eslint-plugin-react
 
 `eslint-plugin-react` は React 固有の Linting の設定を追加するためのプラグイン。使用するために、`extends` と `plugins` に設定を追加する。
 
@@ -86,7 +119,7 @@ parserOptions: {
 eslint-plugin-react の設定  
 <https://github.com/yannickcr/eslint-plugin-react#configuration>
 
-#### 1.2. eslint-plugin-react-hooks
+#### eslint-plugin-react-hooks
 
 `eslint-plugin-react-hooks`は、React Hook に対する linting を設定するためのプラグイン。マニュアル設定を適応する場合、以下のように設定する。
 
@@ -101,7 +134,7 @@ rules: {
 },
 ```
 
-#### 1.3. eslint-plugin-import
+#### eslint-plugin-import
 
 `eslint-plugin-import` は ES2015+ (ES6+) import/export syntax の linting に使われる。
 デフォルトではすべてのルールが無効化されているので、`extends` 内でプラグインの設定を行うか、
@@ -176,7 +209,7 @@ settings: {
 eslint-plugin-import の設定  
 <https://github.com/benmosher/eslint-plugin-import#settings>
 
-#### 1.4. eslint-plugin-jsx-a11y
+#### eslint-plugin-jsx-a11y
 
 `eslint-plugin-jsx-a11y` は Web アクセシビリティに関する linting を行うためのプラグイン。`plugins` で以下のように設定する。
 
@@ -197,7 +230,7 @@ extends: [
 eslint-plugin-jsx-a11y の使い方  
 <https://github.com/evcohen/eslint-plugin-jsx-a11y#usage>
 
-#### 2. eslint-plugin-jest
+#### eslint-plugin-jest
 
 `eslint-plugin-jest` は Jest に対する linting を行うためのプラグイン。以下では、推奨設定とスタイルを強制する設定を示した。
 
@@ -223,7 +256,7 @@ env: {
 eslint-plugin-jest の使い方  
 <https://github.com/jest-community/eslint-plugin-jest#usage>
 
-#### 3. eslint-plugin-prefer-arrow
+#### eslint-plugin-prefer-arrow
 
 `eslint-plugin-prefer-arrow` はアロー関数に関する linting を行うためのプラグイン。以下のように設定を行う。
 
@@ -247,9 +280,9 @@ rules: {
 eslint-plugin-prefer-arrow の使い方  
 <https://github.com/TristonJ/eslint-plugin-prefer-arrow#installations>
 
-#### 4. @typescript-eslint
+#### @typescript-eslint
 
-#### 4.1. @typescript-eslint/parser
+#### @typescript-eslint/parser
 
 TypeScript で型の情報を必要とする場合は、必須の設定。
 
@@ -262,7 +295,7 @@ parserOptions: {
 @typescript-eslint/parser の使い方  
 <https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#parseroptionsproject>
 
-#### 4.2. @typescript-eslint/eslint-plugin
+#### @typescript-eslint/eslint-plugin
 
 `@typescript-eslint/eslint-plugin` は TypeScript の linting を行うためのプラグイン。`@typescript-eslint/parser` がインストールされていることが前提。推奨設定は以下のように設定を行う。
 
@@ -289,7 +322,7 @@ rules: {
 @typescript-eslint/eslint-plugin の使い方  
 <https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage>
 
-#### 5. eslint-plugin-prettier
+#### eslint-plugin-prettier
 
 `eslint-plugin-prettier` は Prettier と ESLint を連携させるためのプラグイン。推奨設定は以下のように設定を行う。また、他のプラグインと連携を行うことできる。
 
@@ -364,13 +397,13 @@ createGlobalStyle
 Using `combineReducers`  
 <https://redux-docs.netlify.com/recipes/structuring-reducers/using-combinereducers>
 
-### 参考資料
+## 参考資料
 
 - [経年劣化に耐える ReactComponent の書き方](https://qiita.com/Takepepe/items/41e3e7a2f612d7eb094a)
 - [typescript-fsa に頼らない React × Redux](https://logmi.jp/tech/articles/320496)
 - [『りあクト！ TypeScript で始めるつらくない React 開発 第 2 版』のサポートページ](https://github.com/oukayuka/ReactBeginnersBook-2.0)
 
-### 公式ドキュメント
+## 公式ドキュメント
 
 - [React](https://ja.reactjs.org/)
 - [Redux](https://redux.js.org/)
