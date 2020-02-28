@@ -1,7 +1,7 @@
 // 1. Import Layer
 import React from 'react';
-import StyledLogo from './components/Logo';
 import styled from 'styled-components';
+import StyledLogo from './components/Logo';
 import GlobalStyle from './styles/baseStyle';
 
 // 2. Types Layer
@@ -18,10 +18,12 @@ type Props = {
 
 // 3. DOM Layer
 const App: React.FC<Props> = props => {
+  const { className, handleClick, status } = props;
+
   return (
     <div>
       <GlobalStyle />
-      <header className={props.className}>
+      <header className={className}>
         <StyledLogo />
 
         <p>
@@ -36,8 +38,8 @@ const App: React.FC<Props> = props => {
           Learn React
         </a>
 
-        <button onClick={props.handleClick}>
-          {props.status ? 'click me' : 'CLICK ME'}
+        <button type="button" onClick={handleClick}>
+          {status ? 'click me' : 'CLICK ME'}
         </button>
       </header>
     </div>

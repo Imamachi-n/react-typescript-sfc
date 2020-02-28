@@ -1,6 +1,8 @@
 # Typescript & React で Single File Components
 
-#### TypeScript & React のプロジェクトを作成
+経年劣化に耐える React のソフトウェア設計を考えるためのサンプルプロジェクト。参考資料で示した Qiita の記事を大いに参考にしました。
+
+### TypeScript & React のプロジェクトを作成
 
 ```bash
 npx create-react-app react-typescript-sfc --template typescript
@@ -9,47 +11,324 @@ npx create-react-app react-typescript-sfc --template typescript
 Adding TypeScript  
 <https://create-react-app.dev/docs/adding-typescript/>
 
-#### ESLint の導入
+### ESLint & Prettier の導入
+
+まず、コーディングスタイルを統一するために、ESLint と Prettier の導入を行う。
 
 ```bash
-yarn add -D eslint \
-eslint-plugin-react \
+yarn add -D \
+eslint @types/eslint \
+prettier @types/prettier \
 @typescript-eslint/eslint-plugin \
 @typescript-eslint/parser \
-@types/eslint
-```
-
-```bash
-yarn add -D eslint-config-airbnb \
-eslint-plugin-import \
-eslint-plugin-jest \
-eslint-plugin-jsx-a11y \
-eslint-plugin-prefer-arrow \
-eslint-plugin-react-hooks
-```
-
-```bash
-yarn add -D prettier \
+eslint-config-airbnb \
 eslint-config-prettier \
+eslint-plugin-import \
+eslint-plugin-react \
+eslint-plugin-react-hooks
+eslint-plugin-jsx-a11y \
+eslint-plugin-jest \
+eslint-plugin-prefer-arrow \
 eslint-plugin-prettier \
-@types/prettier \
 @types/eslint-plugin-prettier
 ```
 
-```bash
-yarn add -D stylelint \
-prettier-stylelint \
-stylelint-config-prettier \
-stylelint-config-standard \
-stylelint-order \
-@types/stylelint
+#### 1. eslint-config-airbnb
+
+AirBnb が提供する ESLint の有名な共通設定を導入する。
+`eslint-config-airbnb` を導入する際、以下のパッケージが必要になる。
+
+- eslint
+- eslint-plugin-import
+- eslint-plugin-react
+- eslint-plugin-react-hooks
+- eslint-plugin-jsx-a11y
+- @typescript-eslint/parser
+
+eslint-config-airbnb の導入  
+<https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb#eslint-config-airbnb-1>
+
+#### 1.1. eslint-plugin-react
+
+`eslint-plugin-react` は React 固有の Linting の設定を追加するためのプラグイン。使用するために、`extends` と `plugins` に設定を追加する。
+
+```js
+extends: [
+  'eslint:recommended',
+  'plugin:react/recommended',
+],
+
+plugins: [
+  'react'
+],
 ```
+
+また、React のバージョンを自動的に特定するために、`detect` の設定を行う（将来的に、`detect` がデフォルトになる予定なので、いずれ設定する必要がなくなる）。
+
+```js
+settings: {
+  react: {
+    version: 'detect',
+  },
+}
+```
+
+さらに、JSX のサポート（ESLint 2+）を追加するために、
+
+```js
+parserOptions: {
+  ecmaFeatures: {
+    jsx: true,
+  },
+},
+```
+
+eslint-plugin-react の設定  
+<https://github.com/yannickcr/eslint-plugin-react#configuration>
+
+#### 1.2. eslint-plugin-react-hooks
+
+`eslint-plugin-react-hooks`は、React Hook に対する linting を設定するためのプラグイン。マニュアル設定を適応する場合、以下のように設定する。
+
+```js
+plugins: [
+  "react-hooks"
+],
+
+rules: {
+  'react-hooks/rules-of-hooks': 'error',
+  'react-hooks/exhaustive-deps': 'error',
+},
+```
+
+#### 1.3. eslint-plugin-import
+
+`eslint-plugin-import` は ES2015+ (ES6+) import/export syntax の linting に使われる。
+デフォルトではすべてのルールが無効化されているので、`extends` 内でプラグインの設定を行うか、
+
+```js
+extends: [
+  'eslint:recommended',
+  'plugin:import/errors',
+  'plugin:import/warnings',
+],
+```
+
+個別にルールを `rules` 内に書き込む必要がある（両方、設定することも可能）。
+
+```js
+plugins: [
+    'import',
+],
+
+rules: {
+    'import/extensions': [
+      'error',
+      'always',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+    'import/prefer-default-export': 'off',
+}
+```
+
+また、TypeScript を使っている場合は、次の設定を追加する必要がある。このとき、`@typescript-eslint/parser` パッケージが依存パッケージに含める必要がある。
+
+```js
+extends: [
+  'eslint:recommended',
+  'plugin:import/errors',
+  'plugin:import/warnings',
+  'plugin:import/typescript', // 追加
+],
+```
+
+eslint-plugin-import のインストール方法  
+<https://github.com/benmosher/eslint-plugin-import#installation>
+
+ルールを適応するファイルを以下のように指定する。`import/resolver` では、`src` ディレクトリ以下の `ts` や `tsx` などの拡張子を持つファイルのみを対象とする。
+
+```js
+settings: {
+  'import/resolver': {
+    node: {
+      extensions: ['.js', 'jsx', '.ts', '.tsx'],
+      paths: ['src'],
+    },
+  },
+}
+```
+
+また、`import/parsers` を使うことで、対象のファイルに対して、指定した parser を使用することができる。以下では、`ts` や `tsx` の拡張子を持つファイルに対して、TypeScript 用の parser を使うように設定している。
+
+```js
+settings: {
+  'import/parsers': {
+    '@typescript-eslint/parser': ['.ts', '.tsx'],
+  },
+}
+```
+
+eslint-plugin-import の設定  
+<https://github.com/benmosher/eslint-plugin-import#settings>
+
+#### 1.4. eslint-plugin-jsx-a11y
+
+`eslint-plugin-jsx-a11y` は Web アクセシビリティに関する linting を行うためのプラグイン。`plugins` で以下のように設定する。
+
+```js
+"plugins": [
+  "jsx-a11y",
+]
+```
+
+推奨設定を適応する場合、以下のように設定する。
+
+```js
+extends: [
+  'plugin:jsx-a11y/recommended',
+]
+```
+
+eslint-plugin-jsx-a11y の使い方  
+<https://github.com/evcohen/eslint-plugin-jsx-a11y#usage>
+
+#### 2. eslint-plugin-jest
+
+`eslint-plugin-jest` は Jest に対する linting を行うためのプラグイン。以下では、推奨設定とスタイルを強制する設定を示した。
+
+```js
+extends: [
+  'plugin:jest/recommended',
+  'plugin:jest/style',
+],
+
+plugins: [
+  'jest',
+],
+```
+
+また、Jest が提供するグローバル変数をホワイトリストに追加するために、以下のように設定を行う。
+
+```js
+env: {
+  'jest/globals': true,
+},
+```
+
+eslint-plugin-jest の使い方  
+<https://github.com/jest-community/eslint-plugin-jest#usage>
+
+#### 3. eslint-plugin-prefer-arrow
+
+`eslint-plugin-prefer-arrow` はアロー関数に関する linting を行うためのプラグイン。以下のように設定を行う。
+
+```js
+plugins: [
+  'prefer-arrow',
+],
+
+rules: {
+  'prefer-arrow/prefer-arrow-functions': [
+    'error',
+    {
+      disallowPrototype: true,
+      singleReturnOnly: true,
+      classPropertiesAllowed: false,
+    },
+  ],
+}
+```
+
+eslint-plugin-prefer-arrow の使い方  
+<https://github.com/TristonJ/eslint-plugin-prefer-arrow#installations>
+
+#### 4. @typescript-eslint
+
+#### 4.1. @typescript-eslint/parser
+
+TypeScript で型の情報を必要とする場合は、必須の設定。
+
+```js
+parserOptions: {
+  project: './tsconfig.json',
+}
+```
+
+@typescript-eslint/parser の使い方  
+<https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#parseroptionsproject>
+
+#### 4.2. @typescript-eslint/eslint-plugin
+
+`@typescript-eslint/eslint-plugin` は TypeScript の linting を行うためのプラグイン。`@typescript-eslint/parser` がインストールされていることが前提。推奨設定は以下のように設定を行う。
+
+```js
+extends: [
+  'plugin:import/typescript',
+  'plugin:@typescript-eslint/eslint-recommended',
+  'plugin:@typescript-eslint/recommended',
+],
+
+parser: '@typescript-eslint/parser',
+plugins: [
+  '@typescript-eslint',
+],
+rules: {
+  '@typescript-eslint/explicit-function-return-type': 'off',
+  '@typescript-eslint/explicit-member-accessibility': 'off',
+  indent: 'off',
+  '@typescript-eslint/indent': 'off',
+  '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+}
+```
+
+@typescript-eslint/eslint-plugin の使い方  
+<https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#usage>
+
+#### 5. eslint-plugin-prettier
+
+`eslint-plugin-prettier` は Prettier と ESLint を連携させるためのプラグイン。推奨設定は以下のように設定を行う。また、他のプラグインと連携を行うことできる。
+
+```js
+extends: [
+  'plugin:prettier/recommended',
+  'prettier/react',
+  'prettier/standard',
+],
+```
+
+マニュアルで設定を変更する場合は、以下のように設定を行う。
+
+```js
+extends: [
+  'prettier',
+],
+
+plugins: [
+  'prettier',
+],
+
+rules: {
+  'prettier/prettier': 'error',
+}
+```
+
+eslint-plugin-prettier の使い方  
+<https://github.com/prettier/eslint-plugin-prettier#recommended-configuration>  
+連携できる ESLint プラグインの一覧  
+<https://github.com/prettier/eslint-config-prettier/blob/master/README.md#installation>
+
+### husky & lint-staged の導入
 
 ```bash
 yarn add husky lint-staged
 ```
 
-#### Redux を React に導入
+### Redux を React に導入
 
 ```bash
 yarn add redux react-redux @types/redux @types/react-redux
@@ -61,7 +340,7 @@ React Redux - Quick Start
 Redux - Configuring Your Store  
 <https://redux-docs.netlify.com/recipes/configuring-your-store/>
 
-#### React Router の導入
+### React Router の導入
 
 ```bash
 yarn add react-router-dom @types/react-router-dom
@@ -70,17 +349,17 @@ yarn add react-router-dom @types/react-router-dom
 React Router - Quick Start  
 <https://reacttraining.com/react-router/web/guides/quick-start>
 
-#### React Router と Redux の統合
+### React Router と Redux の統合
 
 React Router - Redux Integration  
 <https://reacttraining.com/react-router/web/guides/redux-integration>
 
-#### Global CSS を指定する方法
+### Global CSS を指定する方法
 
 createGlobalStyle  
 <https://styled-components.com/docs/api#createglobalstyle>
 
-#### 複数の reducer を結合する
+### 複数の reducer を結合する
 
 Using `combineReducers`  
 <https://redux-docs.netlify.com/recipes/structuring-reducers/using-combinereducers>
@@ -90,3 +369,11 @@ Using `combineReducers`
 - [経年劣化に耐える ReactComponent の書き方](https://qiita.com/Takepepe/items/41e3e7a2f612d7eb094a)
 - [typescript-fsa に頼らない React × Redux](https://logmi.jp/tech/articles/320496)
 - [『りあクト！ TypeScript で始めるつらくない React 開発 第 2 版』のサポートページ](https://github.com/oukayuka/ReactBeginnersBook-2.0)
+
+### 公式ドキュメント
+
+- [React](https://ja.reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [React Redux](https://react-redux.js.org/)
+- [React Router](https://reacttraining.com/react-router/)
+- [ESLint](https://eslint.org/)
