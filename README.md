@@ -28,11 +28,13 @@
     - [husky & lint-staged の導入](#husky--lint-staged-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [lint-staged](#lint-staged)
       - [hasky](#hasky)
-    - [Redux を React に導入](#redux-%e3%82%92-react-%e3%81%ab%e5%b0%8e%e5%85%a5)
+    - [Redux の導入](#redux-%e3%81%ae%e5%b0%8e%e5%85%a5)
+      - [複数の reducer を結合する](#%e8%a4%87%e6%95%b0%e3%81%ae-reducer-%e3%82%92%e7%b5%90%e5%90%88%e3%81%99%e3%82%8b)
     - [React Router の導入](#react-router-%e3%81%ae%e5%b0%8e%e5%85%a5)
-    - [React Router と Redux の統合](#react-router-%e3%81%a8-redux-%e3%81%ae%e7%b5%b1%e5%90%88)
-    - [Global CSS を指定する方法](#global-css-%e3%82%92%e6%8c%87%e5%ae%9a%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95)
-    - [複数の reducer を結合する](#%e8%a4%87%e6%95%b0%e3%81%ae-reducer-%e3%82%92%e7%b5%90%e5%90%88%e3%81%99%e3%82%8b)
+      - [React Router と Redux の統合](#react-router-%e3%81%a8-redux-%e3%81%ae%e7%b5%b1%e5%90%88)
+    - [Styled-components の導入](#styled-components-%e3%81%ae%e5%b0%8e%e5%85%a5)
+      - [Global CSS を指定する方法](#global-css-%e3%82%92%e6%8c%87%e5%ae%9a%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95)
+    - [Material-UI の導入](#material-ui-%e3%81%ae%e5%b0%8e%e5%85%a5)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
     - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
@@ -449,7 +451,7 @@ lint-staged の使い方
 Husky の使い方  
 <https://github.com/typicode/husky#install>
 
-### Redux を React に導入
+### Redux の導入
 
 ```bash
 yarn add redux react-redux @types/redux @types/react-redux
@@ -461,6 +463,11 @@ React Redux - Quick Start
 Redux - Configuring Your Store  
 <https://redux-docs.netlify.com/recipes/configuring-your-store/>
 
+#### 複数の reducer を結合する
+
+Using `combineReducers`  
+<https://redux-docs.netlify.com/recipes/structuring-reducers/using-combinereducers>
+
 ### React Router の導入
 
 ```bash
@@ -470,20 +477,23 @@ yarn add react-router-dom @types/react-router-dom
 React Router - Quick Start  
 <https://reacttraining.com/react-router/web/guides/quick-start>
 
-### React Router と Redux の統合
+#### React Router と Redux の統合
 
 React Router - Redux Integration  
 <https://reacttraining.com/react-router/web/guides/redux-integration>
 
-### Global CSS を指定する方法
+### Styled-components の導入
+
+#### Global CSS を指定する方法
 
 createGlobalStyle  
 <https://styled-components.com/docs/api#createglobalstyle>
 
-### 複数の reducer を結合する
+### Material-UI の導入
 
-Using `combineReducers`  
-<https://redux-docs.netlify.com/recipes/structuring-reducers/using-combinereducers>
+```bash
+yarn add @material-ui/core
+```
 
 ## VSCode の設定について
 
@@ -512,8 +522,10 @@ VSCode - Workspace recommended extensions
 ファイルの保存を行ったときに、ESLint の修正が実行されるように設定する。
 
 ```json
-"editor.codeActionsOnSave": { "source.fixAll.eslint": true },
-  "editor.formatOnSave": true,
+{
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.formatOnSave": true
+}
 ```
 
 ## 既存の React プロジェクトのアップデート
