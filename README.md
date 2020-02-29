@@ -22,6 +22,9 @@
       - [@typescript-eslint/parser](#typescript-eslintparser)
       - [@typescript-eslint/eslint-plugin](#typescript-eslinteslint-plugin)
       - [eslint-plugin-prettier](#eslint-plugin-prettier)
+    - [Stylelint の導入](#stylelint-%e3%81%ae%e5%b0%8e%e5%85%a5)
+      - [Styled-components](#styled-components)
+      - [stylelint-config-prettier](#stylelint-config-prettier)
     - [husky & lint-staged の導入](#husky--lint-staged-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [lint-staged](#lint-staged)
       - [hasky](#hasky)
@@ -361,6 +364,53 @@ eslint-plugin-prettier の使い方
 <https://github.com/prettier/eslint-plugin-prettier#recommended-configuration>  
 連携できる ESLint プラグインの一覧  
 <https://github.com/prettier/eslint-config-prettier/blob/master/README.md#installation>
+
+### Stylelint の導入
+
+Styled-components に Stylelint と Prettier を導入する。
+
+```bash
+yarn add -D \
+stylelint \
+@types/stylelint \
+stylelint-processor-styled-components \
+stylelint-config-styled-components \
+stylelint-config-recommended \
+stylelint-config-prettier
+```
+
+#### Styled-components
+
+`.stylelintrc` ファイルを作成して、以下の Styled-components の設定を追加する。
+
+```json
+{
+  "processors": ["stylelint-processor-styled-components"],
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-styled-components"
+  ]
+}
+```
+
+Styled-components tooling  
+<https://styled-components.com/docs/tooling#stylelint>
+
+#### stylelint-config-prettier
+
+Prettier と競合するルールを排除する。
+
+```json
+{
+  "extends": [
+    // other configs ...
+    "stylelint-config-prettier"
+  ]
+}
+```
+
+stylelint-config-prettier の使い方  
+<https://github.com/prettier/stylelint-config-prettier#installation>
 
 ### husky & lint-staged の導入
 

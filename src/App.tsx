@@ -1,12 +1,6 @@
 // 1. Import Layer
 import React from 'react';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-//   useParams,
-// } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import TopPage from './components/TopPage';
 import GlobalStyle from './styles/baseStyle';
@@ -23,10 +17,24 @@ const App: React.FC<Props> = props => {
   const { className } = props;
 
   return (
-    <div className={className}>
-      <GlobalStyle />
-      <TopPage />
-    </div>
+    <Router>
+      <div className={className}>
+        {/* <Menu /> */}
+
+        <Switch>
+          <Route exact path="/">
+            <GlobalStyle />
+            <TopPage />
+          </Route>
+
+          <Route exact path="/todo">
+            <div>
+              <p>TODO</p>
+            </div>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
