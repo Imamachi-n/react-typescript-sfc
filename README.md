@@ -22,7 +22,7 @@
       - [@typescript-eslint/parser](#typescript-eslintparser)
       - [@typescript-eslint/eslint-plugin](#typescript-eslinteslint-plugin)
       - [eslint-plugin-prettier](#eslint-plugin-prettier)
-    - [Stylelint の導入](#stylelint-%e3%81%ae%e5%b0%8e%e5%85%a5)
+    - [Stylelint の導入（オプション）](#stylelint-%e3%81%ae%e5%b0%8e%e5%85%a5%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%b3)
       - [Styled-components](#styled-components)
       - [stylelint-config-prettier](#stylelint-config-prettier)
     - [husky & lint-staged の導入](#husky--lint-staged-%e3%81%ae%e5%b0%8e%e5%85%a5)
@@ -35,6 +35,7 @@
     - [複数の reducer を結合する](#%e8%a4%87%e6%95%b0%e3%81%ae-reducer-%e3%82%92%e7%b5%90%e5%90%88%e3%81%99%e3%82%8b)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
+    - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
   - [既存の React プロジェクトのアップデート](#%e6%97%a2%e5%ad%98%e3%81%ae-react-%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%ae%e3%82%a2%e3%83%83%e3%83%97%e3%83%87%e3%83%bc%e3%83%88)
     - [Create React App](#create-react-app)
     - [React などの他のパッケージのアップグレード](#react-%e3%81%aa%e3%81%a9%e3%81%ae%e4%bb%96%e3%81%ae%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%81%ae%e3%82%a2%e3%83%83%e3%83%97%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89)
@@ -365,9 +366,9 @@ eslint-plugin-prettier の使い方
 連携できる ESLint プラグインの一覧  
 <https://github.com/prettier/eslint-config-prettier/blob/master/README.md#installation>
 
-### Stylelint の導入
+### Stylelint の導入（オプション）
 
-Styled-components に Stylelint と Prettier を導入する。
+Styled-components に Stylelint と Prettier を導入する。ただし、Styled-components の場合、`--fix` オプションを使うことができないため、自動で修正することは不可能（問題箇所の検知のみ可能）。
 
 ```bash
 yarn add -D \
@@ -402,10 +403,7 @@ Prettier と競合するルールを排除する。
 
 ```json
 {
-  "extends": [
-    // other configs ...
-    "stylelint-config-prettier"
-  ]
+  "extends": ["stylelint-config-prettier"]
 }
 ```
 
@@ -494,7 +492,7 @@ Using `combineReducers`
 1. VSCode 上で、`command + shift` でコマンドパレットを開く。
 2. `Extensions: Configure Recommended Extensions (Workspace Folder)` を実行する。
 3. `.vscode/extensions.json` ファイルが作成される。
-4. 以下の図のように、張機能の略称をリストアップする。
+4. 以下の図のように、拡張機能の略称をリストアップする。
 
 ![extensions](img/Extension_exmaple.png)
 
@@ -506,6 +504,17 @@ Using `combineReducers`
 
 VSCode - Workspace recommended extensions  
 <https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions>
+
+### VSCode の設定の管理
+
+`.vscode/settings.json` 内に設定を書き込むことで、書き込んだ設定を対象のプロジェクトで使うことができる。
+
+ファイルの保存を行ったときに、ESLint の修正が実行されるように設定する。
+
+```json
+"editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.formatOnSave": true,
+```
 
 ## 既存の React プロジェクトのアップデート
 
@@ -540,3 +549,5 @@ Upgrade for Minor or Patch Releases
 - [React Redux](https://react-redux.js.org/)
 - [React Router](https://reacttraining.com/react-router/)
 - [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Styled-components](https://styled-components.com/)
