@@ -28,6 +28,8 @@
     - [React Router と Redux の統合](#react-router-%e3%81%a8-redux-%e3%81%ae%e7%b5%b1%e5%90%88)
     - [Global CSS を指定する方法](#global-css-%e3%82%92%e6%8c%87%e5%ae%9a%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95)
     - [複数の reducer を結合する](#%e8%a4%87%e6%95%b0%e3%81%ae-reducer-%e3%82%92%e7%b5%90%e5%90%88%e3%81%99%e3%82%8b)
+  - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
+    - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
   - [参考資料](#%e5%8f%82%e8%80%83%e8%b3%87%e6%96%99)
   - [公式ドキュメント](#%e5%85%ac%e5%bc%8f%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88)
 
@@ -396,6 +398,26 @@ createGlobalStyle
 
 Using `combineReducers`  
 <https://redux-docs.netlify.com/recipes/structuring-reducers/using-combinereducers>
+
+## VSCode の設定について
+
+### 拡張機能の管理
+
+1. VSCode 上で、`command + shift` でコマンドパレットを開く。
+2. `Extensions: Configure Recommended Extensions (Workspace Folder)` を実行する。
+3. `.vscode/extensions.json` ファイルが作成される。
+4. 以下の図のように、張機能の略称をリストアップする。
+
+![extensions](img/Extension_exmaple.png)
+
+```json
+"recommendations": [
+  "equinusocio.vsc-material-theme",
+],
+```
+
+VSCode - Workspace recommended extensions  
+<https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions>
 
 ## 参考資料
 

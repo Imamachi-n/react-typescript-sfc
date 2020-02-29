@@ -1,3 +1,9 @@
 {
-  "editor.codeActionsOnSave": { "source.fixAll.eslint": true }
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  "editor.formatOnSave": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.tabSize": 2,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Material Theme High Contrast",
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
