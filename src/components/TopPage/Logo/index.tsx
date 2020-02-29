@@ -1,7 +1,7 @@
 // 1. Import Layer
-import React from "react";
-import logo from "./logo.svg";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import logo from './logo.svg';
 
 // 2. Types Layer
 type ContainerProps = {
@@ -16,9 +16,11 @@ type Props = {
 
 // 3. DOM Layer
 const Logo: React.FC<Props> = props => {
+  const { className } = props;
+
   return (
     <div>
-      <img className={props.className} src={logo} alt="logo" />
+      <img className={className} src={logo} alt="logo" />
     </div>
   );
 };

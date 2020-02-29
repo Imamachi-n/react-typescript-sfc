@@ -1,15 +1,9 @@
 // 1. Import Layer
 import React from 'react';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-//   useParams,
-// } from 'react-router-dom';
 import styled from 'styled-components';
-import TopPage from './components/TopPage';
-import GlobalStyle from './styles/baseStyle';
+import Logo from './Logo';
+import Description from './Description';
+import Button from './Button';
 
 // 2. Types Layer
 type Props = {
@@ -19,22 +13,26 @@ type Props = {
 };
 
 // 3. DOM Layer
-const App: React.FC<Props> = props => {
+const TopPage: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
-      <GlobalStyle />
-      <TopPage />
+      <Logo />
+      <Description />
+      <Button />
     </div>
   );
 };
 
 // 4. Style Layer
-const StyledApp = styled(App)`
-  background-color: #282c34;
-  font-size: calc(10px + 2vmin);
-  color: white;
+const StyledTopPage = styled(TopPage)`
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
-export default StyledApp;
+export default StyledTopPage;

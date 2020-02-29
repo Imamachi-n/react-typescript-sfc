@@ -1,5 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
+// Global CSS (For reset CSS style)
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;

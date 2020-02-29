@@ -1,15 +1,6 @@
 // 1. Import Layer
 import React from 'react';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link,
-//   useParams,
-// } from 'react-router-dom';
 import styled from 'styled-components';
-import TopPage from './components/TopPage';
-import GlobalStyle from './styles/baseStyle';
 
 // 2. Types Layer
 type Props = {
@@ -19,22 +10,31 @@ type Props = {
 };
 
 // 3. DOM Layer
-const App: React.FC<Props> = props => {
+const Description: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
-      <GlobalStyle />
-      <TopPage />
+      <p>
+        Edit <code>src/App.tsx</code> and save to reload.
+      </p>
+      <a
+        className="App-link"
+        href="https://reactjs.org"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Learn React
+      </a>
     </div>
   );
 };
 
 // 4. Style Layer
-const StyledApp = styled(App)`
-  background-color: #282c34;
-  font-size: calc(10px + 2vmin);
-  color: white;
+const StyledDescription = styled(Description)`
+  .App-link {
+    color: #61dafb;
+  }
 `;
 
-export default StyledApp;
+export default StyledDescription;
