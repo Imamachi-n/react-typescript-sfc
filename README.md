@@ -23,6 +23,8 @@
       - [@typescript-eslint/eslint-plugin](#typescript-eslinteslint-plugin)
       - [eslint-plugin-prettier](#eslint-plugin-prettier)
     - [husky & lint-staged の導入](#husky--lint-staged-%e3%81%ae%e5%b0%8e%e5%85%a5)
+      - [lint-staged](#lint-staged)
+      - [hasky](#hasky)
     - [Redux を React に導入](#redux-%e3%82%92-react-%e3%81%ab%e5%b0%8e%e5%85%a5)
     - [React Router の導入](#react-router-%e3%81%ae%e5%b0%8e%e5%85%a5)
     - [React Router と Redux の統合](#react-router-%e3%81%a8-redux-%e3%81%ae%e7%b5%b1%e5%90%88)
@@ -30,6 +32,9 @@
     - [複数の reducer を結合する](#%e8%a4%87%e6%95%b0%e3%81%ae-reducer-%e3%82%92%e7%b5%90%e5%90%88%e3%81%99%e3%82%8b)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
+  - [既存の React プロジェクトのアップデート](#%e6%97%a2%e5%ad%98%e3%81%ae-react-%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%ae%e3%82%a2%e3%83%83%e3%83%97%e3%83%87%e3%83%bc%e3%83%88)
+    - [Create React App](#create-react-app)
+    - [React などの他のパッケージのアップグレード](#react-%e3%81%aa%e3%81%a9%e3%81%ae%e4%bb%96%e3%81%ae%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%81%ae%e3%82%a2%e3%83%83%e3%83%97%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89)
   - [参考資料](#%e5%8f%82%e8%80%83%e8%b3%87%e6%96%99)
   - [公式ドキュメント](#%e5%85%ac%e5%bc%8f%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88)
 
@@ -363,6 +368,39 @@ eslint-plugin-prettier の使い方
 yarn add husky lint-staged
 ```
 
+#### lint-staged
+
+`lint-staged` を使うことで、staged git ファイルのみに対して linting をコマンドで実行することができる。
+
+```json
+{
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": ["eslint --fix", "git add"]
+  }
+}
+```
+
+lint-staged の使い方  
+<https://github.com/okonet/lint-staged#configuration>
+
+#### hasky
+
+`husky` は git での commit・push の前に実行するコマンドを設定できる。ここでは、`lint-staged` と合わせて使用し、コミット時に lint が実行されるように設定する。`package.json` を以下のように設定する。
+
+```json
+// package.json
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
+```
+
+Husky の使い方  
+<https://github.com/typicode/husky#install>
+
 ### Redux を React に導入
 
 ```bash
@@ -418,6 +456,26 @@ Using `combineReducers`
 
 VSCode - Workspace recommended extensions  
 <https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions>
+
+## 既存の React プロジェクトのアップデート
+
+### Create React App
+
+Create React App をアップデートする場合、[Change Log](https://github.com/facebook/create-react-app/blob/master/CHANGELOG.md) に書かれているマイグレーション用のコマンドを実行すること。
+
+Updating to New Releases  
+<https://create-react-app.dev/docs/updating-to-new-releases/>
+
+### React などの他のパッケージのアップグレード
+
+以下のコマンドを実行することで、すべての依存パッケージのアップグレードを行うことができる。
+
+```bash
+yarn upgrade
+```
+
+Upgrade for Minor or Patch Releases  
+<https://www.gatsbyjs.org/docs/upgrade-gatsby-and-dependencies/>
 
 ## 参考資料
 
