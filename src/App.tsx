@@ -2,8 +2,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import { StylesProvider } from '@material-ui/styles';
 import TopPage from './components/TopPage';
-import GlobalStyle from './styles/baseStyle';
+import Menu from './components/Menu';
+import GlobalStyle from './styles/BaseStyle';
 
 // 2. Types Layer
 type Props = {
@@ -18,22 +20,25 @@ const App: React.FC<Props> = props => {
 
   return (
     <Router>
-      <div className={className}>
-        {/* <Menu /> */}
+      <StylesProvider injectFirst>
+        <div className={className}>
+          <GlobalStyle />
 
-        <Switch>
-          <Route exact path="/">
-            <GlobalStyle />
-            <TopPage />
-          </Route>
+          <Menu />
 
-          <Route exact path="/todo">
-            <div>
-              <p>TODO</p>
-            </div>
-          </Route>
-        </Switch>
-      </div>
+          <Switch>
+            <Route exact path="/">
+              <TopPage />
+            </Route>
+
+            <Route exact path="/todo">
+              <div>
+                <p>TODO</p>
+              </div>
+            </Route>
+          </Switch>
+        </div>
+      </StylesProvider>
     </Router>
   );
 };

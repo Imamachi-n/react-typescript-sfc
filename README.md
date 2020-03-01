@@ -35,6 +35,8 @@
     - [Styled-components の導入](#styled-components-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [Global CSS を指定する方法](#global-css-%e3%82%92%e6%8c%87%e5%ae%9a%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95)
     - [Material-UI の導入](#material-ui-%e3%81%ae%e5%b0%8e%e5%85%a5)
+      - [Styled-components で定義したスタイルを優先する](#styled-components-%e3%81%a7%e5%ae%9a%e7%be%a9%e3%81%97%e3%81%9f%e3%82%b9%e3%82%bf%e3%82%a4%e3%83%ab%e3%82%92%e5%84%aa%e5%85%88%e3%81%99%e3%82%8b)
+      - [テーマカラーを設定する](#%e3%83%86%e3%83%bc%e3%83%9e%e3%82%ab%e3%83%a9%e3%83%bc%e3%82%92%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
     - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
@@ -492,8 +494,96 @@ createGlobalStyle
 ### Material-UI の導入
 
 ```bash
-yarn add @material-ui/core
+yarn add @material-ui/core @material-ui/icons
 ```
+
+Material-UI のインストール  
+<https://material-ui.com/getting-started/installation/>
+
+#### Styled-components で定義したスタイルを優先する
+
+CSS インジェクションの順番を、Styled-components が最も優先されるように指定する。
+
+ルートコンポーネントをラップする形で、`StylesProvider` コンポーネントを使用し、プロパティに `injectFirst` を指定することで、Styled-components を最も優先するように設定できる。
+
+```tsx
+import { StylesProvider } from '@material-ui/core/styles';
+
+ReactDOM.render(
+  <StylesProvider injectFirst>
+    <App />
+  </StylesProvider>,
+  document.getElementById('root'),
+);
+```
+
+Controlling priority  
+<https://material-ui.com/guides/interoperability/#controlling-priority-%EF%B8%8F-3>
+
+injectFirst  
+<https://material-ui.com/styles/advanced/#injectfirst>
+
+#### テーマカラーを設定する
+
+Material-UI の `ThemeProvider` を用いて、カスタムテーマを対象のコンポーネントに適応する。このとき、Styled-components でも、Material-UI のカスタムテーマを使うために、`ThemeProvider` を併用する。
+
+モジュール名が同じため、以下のように、Material-UI の `ThemeProvider` を `MaterialThemeProvider`、Styled-components の `ThemeProvider` を `StyledThemeProvider` と定義する。
+
+```tsx
+import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+
+ReactDOM.render(
+  <MaterialThemeProvider theme={theme}>
+    <StyledThemeProvider theme={theme}>
+      <App />
+    </StyledThemeProvider>
+  </MaterialThemeProvider>,
+  document.getElementById('root'),
+);
+```
+
+カスタムテーマを使用する場合は、以下のように `props` からアクセスできる。ただし、上記の設定のみだと、TypeScript の場合、theme の型が `any` になってしまう。
+
+```tsx
+import { AppBar } from '@material-ui/core';
+import styled from 'styled-components';
+
+const StyledAppBar = styled(AppBar)`
+  background-color: ${props => props.theme.palette.primary.main};
+`;
+```
+
+そこで、Styled-components の TypeScript の型を拡張する。具体的には、Material-UI の Theme を継承した、`DefaultTheme` を新たに定義する。ファイル名は、`styled.d.ts` とする。
+
+`DefaultTheme` は `props.theme` のインターフェースとして使用される。デフォルトでは、`DefaultTheme` は未定義なので、Material-UI の Theme を継承して、カスタムテーマの型を定義している。
+
+```tsx
+// import original module declarations
+import 'styled-components';
+import { Theme } from '@material-ui/core';
+
+// and extend them!
+declare module 'styled-components' {
+  export interface DefaultTheme extends Theme {
+    // 追加でテーマを拡張する場合、この中に定義をかく。
+    borderRadius: string;
+  }
+}
+```
+
+これにより、VSCode 上で補完が効くようになる。
+
+Material-UI のテーマのカスタマイズ  
+<https://material-ui.com/customization/palette/#customization>  
+Material-UI のカスタムテーマをコンポーネントに適応する方法  
+<https://material-ui.com/customization/theming/#theme-provider>  
+How to use Material-UI theme with styled-components?  
+<https://github.com/mui-org/material-ui/issues/10098>  
+Styled-components で TypeScript の型定義ファイルを設定する  
+<https://styled-components.com/docs/api#create-a-declarations-file>  
+Material-UI と styled components のテーマの共通化  
+<https://qiita.com/Ouvill/items/c6761c32d31ffb11e114#material-ui-%E3%81%A8-styled-components-%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9E%E3%81%AE%E5%85%B1%E9%80%9A%E5%8C%96>
 
 ## VSCode の設定について
 
@@ -553,6 +643,7 @@ Upgrade for Minor or Patch Releases
 - [経年劣化に耐える ReactComponent の書き方](https://qiita.com/Takepepe/items/41e3e7a2f612d7eb094a)
 - [typescript-fsa に頼らない React × Redux](https://logmi.jp/tech/articles/320496)
 - [『りあクト！ TypeScript で始めるつらくない React 開発 第 2 版』のサポートページ](https://github.com/oukayuka/ReactBeginnersBook-2.0)
+- [material design palette](https://www.materialpalette.com/teal/teal)
 
 ## 公式ドキュメント
 
