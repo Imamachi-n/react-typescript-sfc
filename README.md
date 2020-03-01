@@ -572,16 +572,12 @@ declare module 'styled-components' {
 ESLint のせいで、interface の中身が空の場合、エラーとなるため、`// eslint-disable-line` を指定して、ESLint を無視する（あくまで例外的な処置）。
 これにより、VSCode 上で補完が効くようになる。
 
-Material-UI のテーマのカスタマイズ  
-<https://material-ui.com/customization/palette/#customization>  
-Material-UI のカスタムテーマをコンポーネントに適応する方法  
-<https://material-ui.com/customization/theming/#theme-provider>  
-How to use Material-UI theme with styled-components?  
-<https://github.com/mui-org/material-ui/issues/10098>  
-Styled-components で TypeScript の型定義ファイルを設定する  
-<https://styled-components.com/docs/api#create-a-declarations-file>  
-Material-UI と styled components のテーマの共通化  
-<https://qiita.com/Ouvill/items/c6761c32d31ffb11e114#material-ui-%E3%81%A8-styled-components-%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9E%E3%81%AE%E5%85%B1%E9%80%9A%E5%8C%96>
+**参考資料**  
+[Material-UI のテーマのカスタマイズ](https://material-ui.com/customization/palette/#customization)  
+[Material-UI のカスタムテーマをコンポーネントに適応する方法](https://material-ui.com/customization/theming/#theme-provider)  
+[How to use Material-UI theme with styled-components?](https://github.com/mui-org/material-ui/issues/10098)  
+[Styled-components で TypeScript の型定義ファイルを設定する](https://styled-components.com/docs/api#create-a-declarations-file)  
+[Material-UI と styled components のテーマの共通化](https://qiita.com/Ouvill/items/c6761c32d31ffb11e114#material-ui-%E3%81%A8-styled-components-%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9E%E3%81%AE%E5%85%B1%E9%80%9A%E5%8C%96)
 
 ## VSCode の設定について
 
@@ -652,3 +648,4 @@ Upgrade for Minor or Patch Releases
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [Styled-components](https://styled-components.com/)
+- [Material UI](https://material-ui.com/)

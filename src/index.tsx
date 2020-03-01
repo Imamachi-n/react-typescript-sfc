@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
-import { ThemeProvider as MaterialThemeProvider } from '@material-ui/styles';
+import {
+  ThemeProvider as MaterialThemeProvider,
+  StylesProvider,
+} from '@material-ui/styles';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { createStore } from 'redux';
-import AppContainer from './App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import rootReducer from './redux/rootReducer';
@@ -14,11 +17,13 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(
   <ReduxProvider store={store}>
-    <MaterialThemeProvider theme={theme}>
-      <StyledThemeProvider theme={theme}>
-        <AppContainer />
-      </StyledThemeProvider>
-    </MaterialThemeProvider>
+    <StylesProvider injectFirst>
+      <MaterialThemeProvider theme={theme}>
+        <StyledThemeProvider theme={theme}>
+          <App />
+        </StyledThemeProvider>
+      </MaterialThemeProvider>
+    </StylesProvider>
   </ReduxProvider>,
   document.getElementById('root'),
 );

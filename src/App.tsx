@@ -2,7 +2,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import { StylesProvider } from '@material-ui/styles';
 import TopPage from './components/TopPage';
 import Menu from './components/Menu';
 import GlobalStyle from './styles/BaseStyle';
@@ -20,25 +19,23 @@ const App: React.FC<Props> = props => {
 
   return (
     <Router>
-      <StylesProvider injectFirst>
-        <div className={className}>
-          <GlobalStyle />
+      <div className={className}>
+        <GlobalStyle />
 
-          <Menu />
+        <Menu />
 
-          <Switch>
-            <Route exact path="/">
-              <TopPage />
-            </Route>
+        <Switch>
+          <Route exact path="/">
+            <TopPage />
+          </Route>
 
-            <Route exact path="/todo">
-              <div>
-                <p>TODO</p>
-              </div>
-            </Route>
-          </Switch>
-        </div>
-      </StylesProvider>
+          <Route exact path="/todo">
+            <div>
+              <p>TODO</p>
+            </div>
+          </Route>
+        </Switch>
+      </div>
     </Router>
   );
 };
