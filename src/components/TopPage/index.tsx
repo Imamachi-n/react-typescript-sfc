@@ -27,6 +27,7 @@ const TopPage: React.FC<Props> = props => {
 
 // 4. Style Layer
 const StyledTopPage = styled(TopPage)`
+  margin-top: 64px;
   min-height: 100vh;
   text-align: center;
   display: flex;

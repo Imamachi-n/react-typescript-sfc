@@ -1,6 +1,8 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
+import { Box } from '@material-ui/core';
+import TextTypography from '../../Common/Typography/Text';
 
 // 2. Types Layer
 type Props = {
@@ -15,9 +17,10 @@ const Description: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
+      <Box fontWeight="fontWeightBold">
+        <TextTypography variant="h2">React</TextTypography>
+      </Box>
+      <p>A JavaScript library for building user interfaces.</p>
       <a
         className="App-link"
         href="https://reactjs.org"
