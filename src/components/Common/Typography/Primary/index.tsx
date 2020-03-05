@@ -3,8 +3,8 @@ import { Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
 // 4. Style Layer
-const StyledTypography = styled(Typography)`
+export const TypographyPrimary = styled(Typography)`
   color: ${props => props.theme.palette.primary.main};
 `;
 
-export default StyledTypography;
+export default TypographyPrimary;

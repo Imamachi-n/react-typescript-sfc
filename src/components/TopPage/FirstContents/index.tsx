@@ -1,9 +1,9 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import Logo from './Logo';
-import Description from './Description';
-import Button from './Button';
+import { StyledLogo } from './Logo';
+import { StyledDescription } from './Description';
+import { ContaineredButton } from './Button';
 
 // 2. Types Layer
 type Props = {
@@ -13,20 +13,20 @@ type Props = {
 };
 
 // 3. DOM Layer
-const TopPage: React.FC<Props> = props => {
+const FirstContents: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
-      <Logo />
-      <Description />
-      <Button />
+      <StyledLogo />
+      <StyledDescription />
+      <ContaineredButton />
     </div>
   );
 };
 
 // 4. Style Layer
-const StyledTopPage = styled(TopPage)`
+export const StyledFirstContents = styled(FirstContents)`
   margin-top: 56px;
   min-height: 100vh;
   text-align: center;
@@ -36,4 +36,4 @@ const StyledTopPage = styled(TopPage)`
   justify-content: center;
 `;
 
-export default StyledTopPage;
+export default StyledFirstContents;

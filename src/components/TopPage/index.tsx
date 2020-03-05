@@ -1,8 +1,8 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import FirstContents from './FirstContents';
-import SecondContents from './SecondContents';
+import { StyledFirstContents } from './FirstContents';
+import { StyledSecondContents } from './SecondContents';
 
 // 2. Types Layer
 type Props = {
@@ -17,13 +17,13 @@ const TopPage: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <FirstContents />
-      <SecondContents />
+      <StyledFirstContents />
+      <StyledSecondContents />
     </div>
   );
 };
 
 // 4. Style Layer
-const StyledTopPage = styled(TopPage)``;
+export const StyledTopPage = styled(TopPage)``;
 
 export default StyledTopPage;

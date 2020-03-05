@@ -26,7 +26,7 @@ const Logo: React.FC<Props> = props => {
 };
 
 // 4. Style Layer
-const StyledLogo = styled(Logo)`
+export const StyledLogo = styled(Logo)`
   height: 40vmin;
   pointer-events: none;
 

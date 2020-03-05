@@ -22,7 +22,7 @@ const RightSide: React.FC<Props> = props => {
 };
 
 // 4. Style Layer
-const StyledRightSide = styled(RightSide)`
+export const StyledRightSide = styled(RightSide)`
   margin-left: auto;
 `;
 

@@ -3,10 +3,10 @@ import React from 'react';
 import { Toolbar, Box } from '@material-ui/core';
 // import MenuIcon from '@material-ui/icons/Menu';
 import styled from 'styled-components';
-import RightSide from './RightSide';
-import StyledAppBar from '../Common/AppBar';
-import PrimaryTypography from '../Common/Typography/Text';
-import ElevationScroll from '../Common/ElevationScroll';
+import { StyledAppBar } from 'components/Common/AppBar';
+import { TypographyText } from 'components/Common/Typography/Text';
+import { ElevationScroll } from 'components/Common/ElevationScroll';
+import { StyledRightSide } from './RightSide';
 
 // 2. Types Layer
 type Props = {
@@ -25,11 +25,11 @@ const Menu: React.FC<Props> = props => {
         <ElevationScroll {...props}>
           <StyledAppBar>
             <Toolbar>
-              <PrimaryTypography variant="h6">
+              <TypographyText variant="h6">
                 <Box fontWeight="fontWeightBold">React & TypeScript SFC</Box>
-              </PrimaryTypography>
+              </TypographyText>
 
-              <RightSide />
+              <StyledRightSide />
             </Toolbar>
           </StyledAppBar>
         </ElevationScroll>
@@ -39,7 +39,7 @@ const Menu: React.FC<Props> = props => {
 };
 
 // 4. Style Layer
-const StyledMenu = styled(Menu)`
+export const StyledMenu = styled(Menu)`
   background-color: #6772e5;
 
   .button {

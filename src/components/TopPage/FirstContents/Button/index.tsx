@@ -3,15 +3,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 // 2. Types Layer
-type ContainerProps = {
-  status?: boolean;
-  handleClick?: () => void;
-};
+type ContainerProps = {};
 
 type Props = {
   // When defining a component you will need to mark className as optional in your Props
   // https://styled-components.com/docs/api#caveat-with-classname
   className?: string;
+  status: boolean;
+  handleClick: () => void;
 } & ContainerProps;
 
 // 3. DOM Layer
@@ -68,7 +67,7 @@ const StyledButton = styled(Button)`
 `;
 
 // 5. Container Layer
-const ButtonContainer: React.FC<ContainerProps> = props => {
+export const ContaineredButton: React.FC<ContainerProps> = props => {
   // State Management
   const [status, setStatus] = React.useState(false);
   const handleClick = React.useCallback(() => {
@@ -78,4 +77,4 @@ const ButtonContainer: React.FC<ContainerProps> = props => {
   return <StyledButton {...props} status={status} handleClick={handleClick} />;
 };
 
-export default ButtonContainer;
+export default ContaineredButton;

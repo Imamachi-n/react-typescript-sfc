@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Typography, Box } from '@material-ui/core';
-import PrimaryTypography from '../../../../Common/Typography/Primary';
+import { TypographyPrimary } from 'components/Common/Typography/Primary';
 
 // 2. Types Layer
 type Props = {
@@ -21,11 +21,11 @@ const Item: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <PrimaryTypography variant="h5">
+      <TypographyPrimary variant="h5">
         <Box fontWeight="fontWeightBold" m={1}>
           {title}
         </Box>
-      </PrimaryTypography>
+      </TypographyPrimary>
 
       {descList}
     </div>
@@ -33,7 +33,7 @@ const Item: React.FC<Props> = props => {
 };
 
 // 4. Style Layer
-const StyledItem = styled(Item)`
+export const StyledItem = styled(Item)`
   margin-right: 1rem;
   margin-left: 1rem;
 `;

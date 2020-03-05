@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container } from '@material-ui/core';
-import Details from './Details';
+import { StyledDetails } from './Details';
 
 // 2. Types Layer
 type Props = {
@@ -12,21 +12,21 @@ type Props = {
 };
 
 // 3. DOM Layer
-const TopPage: React.FC<Props> = props => {
+const SecondContents: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
       <Container>
-        <Details />
+        <StyledDetails />
       </Container>
     </div>
   );
 };
 
 // 4. Style Layer
-const StyledTopPage = styled(TopPage)`
+export const StyledSecondContents = styled(SecondContents)`
   min-height: 90vh;
 `;
 
-export default StyledTopPage;
+export default StyledSecondContents;

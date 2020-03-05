@@ -12,6 +12,7 @@
     "msjsdiag.debugger-for-chrome",
     "visualstudioexptteam.vscodeintellicode",
     "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
     "jpoissonnier.vscode-styled-components",
     "xabikos.javascriptsnippets",
     "dsznajder.es7-react-js-snippets",

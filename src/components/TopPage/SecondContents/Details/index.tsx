@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
-import Item from './item';
+import { StyledItem } from './item';
 
 import { list } from './descText.json';
 
@@ -19,7 +19,7 @@ const Details: React.FC<Props> = props => {
 
   const cardList = list.map(item => (
     <Grid item sm={12} md={4} key={item.title}>
-      <Item title={item.title} desc={item.desc} />
+      <StyledItem title={item.title} desc={item.desc} />
     </Grid>
   ));
 
@@ -33,6 +33,6 @@ const Details: React.FC<Props> = props => {
 };
 
 // 4. Style Layer
-const StyledDetails = styled(Details)``;
+export const StyledDetails = styled(Details)``;
 
 export default StyledDetails;

@@ -10,6 +10,7 @@
   - [目次](#%e7%9b%ae%e6%ac%a1)
   - [詳細](#%e8%a9%b3%e7%b4%b0)
     - [TypeScript & React のプロジェクトを作成](#typescript--react-%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90)
+    - [絶対パスで React コンポーネントをインポートできるようにする](#%e7%b5%b6%e5%af%be%e3%83%91%e3%82%b9%e3%81%a7-react-%e3%82%b3%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%8d%e3%83%b3%e3%83%88%e3%82%92%e3%82%a4%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%88%e3%81%a7%e3%81%8d%e3%82%8b%e3%82%88%e3%81%86%e3%81%ab%e3%81%99%e3%82%8b)
     - [ESLint & Prettier の導入](#eslint--prettier-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [eslint-config-airbnb](#eslint-config-airbnb)
       - [eslint-plugin-react](#eslint-plugin-react)
@@ -37,8 +38,8 @@
     - [Material-UI の導入](#material-ui-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [Styled-components で定義したスタイルを優先する](#styled-components-%e3%81%a7%e5%ae%9a%e7%be%a9%e3%81%97%e3%81%9f%e3%82%b9%e3%82%bf%e3%82%a4%e3%83%ab%e3%82%92%e5%84%aa%e5%85%88%e3%81%99%e3%82%8b)
       - [テーマカラーを設定する](#%e3%83%86%e3%83%bc%e3%83%9e%e3%82%ab%e3%83%a9%e3%83%bc%e3%82%92%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b)
-    - [上部に固定されたヘッダーを作成](#%e4%b8%8a%e9%83%a8%e3%81%ab%e5%9b%ba%e5%ae%9a%e3%81%95%e3%82%8c%e3%81%9f%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e3%82%92%e4%bd%9c%e6%88%90)
-    - [Grid React component のスクリーンサイズに応じた調節](#grid-react-component-%e3%81%ae%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b5%e3%82%a4%e3%82%ba%e3%81%ab%e5%bf%9c%e3%81%98%e3%81%9f%e8%aa%bf%e7%af%80)
+      - [上部に固定されたヘッダーを作成](#%e4%b8%8a%e9%83%a8%e3%81%ab%e5%9b%ba%e5%ae%9a%e3%81%95%e3%82%8c%e3%81%9f%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e3%82%92%e4%bd%9c%e6%88%90)
+      - [Grid React component のスクリーンサイズに応じた調節](#grid-react-component-%e3%81%ae%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b5%e3%82%a4%e3%82%ba%e3%81%ab%e5%bf%9c%e3%81%98%e3%81%9f%e8%aa%bf%e7%af%80)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
     - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
@@ -60,6 +61,41 @@ npx create-react-app react-typescript-sfc --template typescript
 
 Adding TypeScript  
 <https://create-react-app.dev/docs/adding-typescript/>
+
+### 絶対パスで React コンポーネントをインポートできるようにする
+
+相対パスだと、リファクタリングによってコンポーネントの配置を変更した場合に、インポート先もすべて変更する必要が出てくる。絶対パスを指定することにより、上記の問題を回避する。
+
+設定方法としては、`tsconfig.json` に以下の設定を追加するだけ。
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src"]
+}
+```
+
+例えば、`components/Button` を以下のように絶対パスを使ってインポートできるようになる。
+
+```tsx
+import Button from 'components/Button';
+```
+
+VSCode を使っている場合、絶対パスを使用すると `Cannot find module` と怒られるはずなので、VSCode の `settings.json` に以下の設定を追加する。
+
+```json
+{
+  "typescript.preferences.importModuleSpecifier": "non-relative"
+}
+```
+
+さらに、パスの補完が効かなくなるので、`path-intellisense` を拡張機能として追加する。
+
+**参考資料**  
+[Create React App - Absolute Imports](https://create-react-app.dev/docs/importing-a-component/#absolute-imports)  
+[VS Code: “Cannot find module” from root path](https://stackoverflow.com/questions/55063550/vs-code-cannot-find-module-from-root-path)
 
 ### ESLint & Prettier の導入
 
@@ -581,7 +617,7 @@ ESLint のせいで、interface の中身が空の場合、エラーとなるた
 [Styled-components で TypeScript の型定義ファイルを設定する](https://styled-components.com/docs/api#create-a-declarations-file)  
 [Material-UI と styled components のテーマの共通化](https://qiita.com/Ouvill/items/c6761c32d31ffb11e114#material-ui-%E3%81%A8-styled-components-%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9E%E3%81%AE%E5%85%B1%E9%80%9A%E5%8C%96)
 
-### 上部に固定されたヘッダーを作成
+#### 上部に固定されたヘッダーを作成
 
 `React.cloneElement` を使って、子コンポーネントに `elevation` を `props` として渡す。
 
@@ -613,7 +649,7 @@ export default function ElevationScroll(props: ScrollProps) {
 [Material-UI - Elevate App Bar ](https://material-ui.com/components/app-bar/#elevate-app-bar)  
 [React - cloneElement()](https://reactjs.org/docs/react-api.html#cloneelement)
 
-### Grid React component のスクリーンサイズに応じた調節
+#### Grid React component のスクリーンサイズに応じた調節
 
 `xs, sm < md < lg < xl`
 
@@ -684,7 +720,9 @@ Upgrade for Minor or Patch Releases
 ## 公式ドキュメント
 
 - [React](https://ja.reactjs.org/)
+- [Create React App](https://create-react-app.dev/)
 - [Redux](https://redux.js.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
 - [React Redux](https://react-redux.js.org/)
 - [React Router](https://reacttraining.com/react-router/)
 - [ESLint](https://eslint.org/)

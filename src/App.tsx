@@ -2,8 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import TopPage from './components/TopPage';
-import Menu from './components/Menu';
+import { StyledTopPage } from './components/TopPage';
+import { StyledMenu } from './components/Menu';
 import GlobalStyle from './styles/BaseStyle';
 
 // 2. Types Layer
@@ -22,11 +22,11 @@ const App: React.FC<Props> = props => {
       <div className={className}>
         <GlobalStyle />
 
-        <Menu />
+        <StyledMenu />
 
         <Switch>
           <Route exact path="/">
-            <TopPage />
+            <StyledTopPage />
           </Route>
 
           <Route exact path="/todo">
