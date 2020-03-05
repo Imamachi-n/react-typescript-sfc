@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
-import TextTypography from '../../Common/Typography/Text';
+import PrimaryTypography from '../../../Common/Typography/Primary';
 
 // 2. Types Layer
 type Props = {
@@ -17,9 +17,9 @@ const Description: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <Box fontWeight="fontWeightBold">
-        <TextTypography variant="h2">React</TextTypography>
-      </Box>
+      <PrimaryTypography variant="h2">
+        <Box fontWeight="fontWeightBold">React</Box>
+      </PrimaryTypography>
       <p>A JavaScript library for building user interfaces.</p>
       <a
         className="App-link"
@@ -36,7 +36,7 @@ const Description: React.FC<Props> = props => {
 // 4. Style Layer
 const StyledDescription = styled(Description)`
   .App-link {
-    color: #61dafb;
+    color: ${props => props.theme.palette.primary.main};
   }
 `;
 

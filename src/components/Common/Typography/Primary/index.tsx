@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 // 4. Style Layer
 const StyledTypography = styled(Typography)`
-  color: ${props => props.theme.palette.text.primary};
+  color: ${props => props.theme.palette.primary.main};
 `;
 
 export default StyledTypography;

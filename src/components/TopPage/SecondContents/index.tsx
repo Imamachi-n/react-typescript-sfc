@@ -1,8 +1,8 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import FirstContents from './FirstContents';
-import SecondContents from './SecondContents';
+import { Container } from '@material-ui/core';
+import Details from './Details';
 
 // 2. Types Layer
 type Props = {
@@ -17,13 +17,16 @@ const TopPage: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <FirstContents />
-      <SecondContents />
+      <Container>
+        <Details />
+      </Container>
     </div>
   );
 };
 
 // 4. Style Layer
-const StyledTopPage = styled(TopPage)``;
+const StyledTopPage = styled(TopPage)`
+  min-height: 90vh;
+`;
 
 export default StyledTopPage;

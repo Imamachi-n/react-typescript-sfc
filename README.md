@@ -37,6 +37,8 @@
     - [Material-UI の導入](#material-ui-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [Styled-components で定義したスタイルを優先する](#styled-components-%e3%81%a7%e5%ae%9a%e7%be%a9%e3%81%97%e3%81%9f%e3%82%b9%e3%82%bf%e3%82%a4%e3%83%ab%e3%82%92%e5%84%aa%e5%85%88%e3%81%99%e3%82%8b)
       - [テーマカラーを設定する](#%e3%83%86%e3%83%bc%e3%83%9e%e3%82%ab%e3%83%a9%e3%83%bc%e3%82%92%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b)
+    - [上部に固定されたヘッダーを作成](#%e4%b8%8a%e9%83%a8%e3%81%ab%e5%9b%ba%e5%ae%9a%e3%81%95%e3%82%8c%e3%81%9f%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e3%82%92%e4%bd%9c%e6%88%90)
+    - [Grid React component のスクリーンサイズに応じた調節](#grid-react-component-%e3%81%ae%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b5%e3%82%a4%e3%82%ba%e3%81%ab%e5%bf%9c%e3%81%98%e3%81%9f%e8%aa%bf%e7%af%80)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
     - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
@@ -578,6 +580,46 @@ ESLint のせいで、interface の中身が空の場合、エラーとなるた
 [How to use Material-UI theme with styled-components?](https://github.com/mui-org/material-ui/issues/10098)  
 [Styled-components で TypeScript の型定義ファイルを設定する](https://styled-components.com/docs/api#create-a-declarations-file)  
 [Material-UI と styled components のテーマの共通化](https://qiita.com/Ouvill/items/c6761c32d31ffb11e114#material-ui-%E3%81%A8-styled-components-%E3%81%AE%E3%83%86%E3%83%BC%E3%83%9E%E3%81%AE%E5%85%B1%E9%80%9A%E5%8C%96)
+
+### 上部に固定されたヘッダーを作成
+
+`React.cloneElement` を使って、子コンポーネントに `elevation` を `props` として渡す。
+
+カスタム Hook である `useScrollTrigger` を使うことで、スクロールをトリガーとして、対象のコンポーネント（ヘッダーなど）を上部に配置する（デフォルトで elevation の値が `4` であり、スクロール時にこれを `0` にすることで、対象のコンポーネントが上部に固定される）。
+
+```tsx
+import React from 'react';
+import { useScrollTrigger } from '@material-ui/core';
+
+interface ScrollProps {
+  children: React.ReactElement;
+}
+
+export default function ElevationScroll(props: ScrollProps) {
+  const { children } = props;
+
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+```
+
+**参考資料**  
+[Material-UI - Elevate App Bar ](https://material-ui.com/components/app-bar/#elevate-app-bar)  
+[React - cloneElement()](https://reactjs.org/docs/react-api.html#cloneelement)
+
+### Grid React component のスクリーンサイズに応じた調節
+
+`xs, sm < md < lg < xl`
+
+**参考資料**  
+[Grid - How it works](https://material-ui.com/components/grid/#how-it-works)  
+[Grid API](https://material-ui.com/api/grid/)
 
 ## VSCode の設定について
 

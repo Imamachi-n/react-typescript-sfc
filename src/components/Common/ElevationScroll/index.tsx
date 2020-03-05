@@ -6,6 +6,7 @@ interface ScrollProps {
 }
 
 // Component for Elevate App Bar
+// Use this component inside <React.fragment>
 // https://material-ui.com/components/app-bar/#elevate-app-bar
 export default function ElevationScroll(props: ScrollProps) {
   const { children } = props;

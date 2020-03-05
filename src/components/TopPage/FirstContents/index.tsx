@@ -1,8 +1,9 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import FirstContents from './FirstContents';
-import SecondContents from './SecondContents';
+import Logo from './Logo';
+import Description from './Description';
+import Button from './Button';
 
 // 2. Types Layer
 type Props = {
@@ -17,13 +18,22 @@ const TopPage: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <FirstContents />
-      <SecondContents />
+      <Logo />
+      <Description />
+      <Button />
     </div>
   );
 };
 
 // 4. Style Layer
-const StyledTopPage = styled(TopPage)``;
+const StyledTopPage = styled(TopPage)`
+  margin-top: 56px;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default StyledTopPage;

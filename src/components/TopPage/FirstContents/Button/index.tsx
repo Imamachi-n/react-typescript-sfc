@@ -21,7 +21,7 @@ const Button: React.FC<Props> = props => {
   return (
     <div className={className}>
       <button type="button" onClick={handleClick}>
-        {status ? 'click me' : 'CLICK ME'}
+        {status ? 'toggle' : 'TOGGLE'}
       </button>
     </div>
   );
