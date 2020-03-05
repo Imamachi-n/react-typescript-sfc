@@ -1,7 +1,10 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import { StyledGitHubLink } from './GitHubLink';
+import { StyledTitle } from './Title';
+import { StyledScrollButton } from './ScrollButton';
+import { StyledToDoButton } from './TodoButton';
+import { StyledApiButton } from './ApiButton';
 
 // 2. Types Layer
 type Props = {
@@ -11,21 +14,22 @@ type Props = {
 };
 
 // 3. DOM Layer
-const RightSide: React.FC<Props> = props => {
+const LeftSide: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
-      <StyledGitHubLink />
-      <StyledGitHubLink />
+      <StyledTitle />
+      <StyledScrollButton />
+      <StyledToDoButton />
+      <StyledApiButton />
     </div>
   );
 };
 
 // 4. Style Layer
-export const StyledRightSide = styled(RightSide)`
-  margin-left: auto;
+export const StyledLeftSide = styled(LeftSide)`
   display: flex;
 `;
 
-export default StyledRightSide;
+export default StyledLeftSide;

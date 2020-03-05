@@ -1,7 +1,8 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import { StyledGitHubLink } from './GitHubLink';
+import { TypographyText } from 'components/Common/Typography/Text';
+import { Box } from '@material-ui/core';
 
 // 2. Types Layer
 type Props = {
@@ -11,21 +12,22 @@ type Props = {
 };
 
 // 3. DOM Layer
-const RightSide: React.FC<Props> = props => {
+const Title: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
-      <StyledGitHubLink />
-      <StyledGitHubLink />
+      <TypographyText variant="h6">
+        <Box fontWeight="fontWeightBold">React & TypeScript SFC</Box>
+      </TypographyText>
     </div>
   );
 };
 
 // 4. Style Layer
-export const StyledRightSide = styled(RightSide)`
-  margin-left: auto;
+export const StyledTitle = styled(Title)`
   display: flex;
+  align-items: center;
 `;
 
-export default StyledRightSide;
+export default StyledTitle;

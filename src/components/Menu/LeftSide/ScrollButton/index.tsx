@@ -1,7 +1,8 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import { StyledGitHubLink } from './GitHubLink';
+import { Button } from '@material-ui/core';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 // 2. Types Layer
 type Props = {
@@ -11,21 +12,24 @@ type Props = {
 };
 
 // 3. DOM Layer
-const RightSide: React.FC<Props> = props => {
+const ScrollButton: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
-      <StyledGitHubLink />
-      <StyledGitHubLink />
+      <Button color="inherit">
+        <ArrowDownwardIcon />
+        Scroll
+      </Button>
     </div>
   );
 };
 
 // 4. Style Layer
-export const StyledRightSide = styled(RightSide)`
-  margin-left: auto;
+export const StyledScrollButton = styled(ScrollButton)`
   display: flex;
+  align-items: center;
+  margin-left: 1rem;
 `;
 
-export default StyledRightSide;
+export default StyledScrollButton;

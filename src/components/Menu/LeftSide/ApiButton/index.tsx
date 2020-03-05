@@ -1,7 +1,8 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import { StyledGitHubLink } from './GitHubLink';
+import { Button } from '@material-ui/core';
+import LanguageIcon from '@material-ui/icons/Language';
 
 // 2. Types Layer
 type Props = {
@@ -11,21 +12,24 @@ type Props = {
 };
 
 // 3. DOM Layer
-const RightSide: React.FC<Props> = props => {
+const ApiButton: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
-      <StyledGitHubLink />
-      <StyledGitHubLink />
+      <Button color="inherit">
+        <LanguageIcon />
+        API CALL
+      </Button>
     </div>
   );
 };
 
 // 4. Style Layer
-export const StyledRightSide = styled(RightSide)`
-  margin-left: auto;
+export const StyledApiButton = styled(ApiButton)`
   display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
 `;
 
-export default StyledRightSide;
+export default StyledApiButton;
