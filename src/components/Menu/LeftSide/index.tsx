@@ -1,10 +1,10 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import { StyledTitle } from './Title';
-import { StyledScrollButton } from './ScrollButton';
-import { StyledToDoButton } from './TodoButton';
-import { StyledApiButton } from './ApiButton';
+import { ContaineredTitle } from './Title';
+import { ContaineredScrollButton } from './ScrollButton';
+import { ContaineredToDoButton } from './TodoButton';
+import { ContaineredApiButton } from './ApiButton';
 
 // 2. Types Layer
 type Props = {
@@ -19,10 +19,10 @@ const LeftSide: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <StyledTitle />
-      <StyledScrollButton />
-      <StyledToDoButton />
-      <StyledApiButton />
+      <ContaineredTitle />
+      <ContaineredScrollButton />
+      <ContaineredToDoButton />
+      <ContaineredApiButton />
     </div>
   );
 };

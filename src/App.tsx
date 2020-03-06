@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledScrollTopButton } from 'components/Common/ScrollTop/ScrollTopButton';
+import StyledTodoPage from 'components/TodoPage';
 import { StyledTopPage } from './components/TopPage';
 import { StyledMenu } from './components/Menu';
 import GlobalStyle from './styles/BaseStyle';
@@ -35,9 +36,7 @@ const App: React.FC<Props> = props => {
           </Route>
 
           <Route exact path="/todo">
-            <div>
-              <p>TODO</p>
-            </div>
+            <StyledTodoPage />
           </Route>
         </Switch>
 
