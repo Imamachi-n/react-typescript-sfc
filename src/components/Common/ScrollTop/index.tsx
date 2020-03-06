@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useScrollTrigger, Zoom } from '@material-ui/core';
 
+// 2. Type Layer
 type ContainerProps = {
   children: React.ReactElement;
 };
@@ -38,7 +39,7 @@ export const StyledScrollTop = styled(ScrollTop)`
 `;
 
 // 5. Container Layer
-export function ContaineredScrollTop(props: ContainerProps) {
+export const ContaineredScrollTop: React.FC<ContainerProps> = props => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 100,
@@ -58,6 +59,6 @@ export function ContaineredScrollTop(props: ContainerProps) {
   return (
     <StyledScrollTop {...props} trigger={trigger} handleClick={handleClick} />
   );
-}
+};
 
 export default ContaineredScrollTop;

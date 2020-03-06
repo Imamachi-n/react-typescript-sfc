@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import { ContaineredAnchorScroll } from 'components/Common/AnchorScroll';
 
 // 2. Types Layer
 type Props = {
@@ -17,10 +18,12 @@ const ScrollButton: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <Button color="inherit">
-        <ArrowDownwardIcon className="icon" />
-        Scroll
-      </Button>
+      <ContaineredAnchorScroll anchorId="#secondContents">
+        <Button color="inherit">
+          <ArrowDownwardIcon className="icon" />
+          Scroll
+        </Button>
+      </ContaineredAnchorScroll>
     </div>
   );
 };

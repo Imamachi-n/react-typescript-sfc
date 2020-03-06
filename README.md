@@ -652,7 +652,14 @@ export default function ElevationScroll(props: ScrollProps) {
 
 #### Grid React component のスクリーンサイズに応じた調節
 
-`xs, sm < md < lg < xl`
+```
+innerWidth  |xs      sm       md       lg       xl
+            |--------|--------|--------|--------|-------->
+width       |   xs   |   sm   |   md   |   lg   |   xl
+
+smUp        |   show | hide
+mdDown      |                     hide | show
+```
 
 **参考資料**  
 [Grid - How it works](https://material-ui.com/components/grid/#how-it-works)  
@@ -701,7 +708,7 @@ export const StyledScrollTop = styled(ScrollTop)`
 `;
 
 // 5. Container Layer
-export function ContaineredScrollTop(props: ContainerProps) {
+export const ContaineredScrollTop: React.FC<ContainerProps> = props => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 100,
@@ -721,7 +728,7 @@ export function ContaineredScrollTop(props: ContainerProps) {
   return (
     <StyledScrollTop {...props} trigger={trigger} handleClick={handleClick} />
   );
-}
+};
 
 export default ContaineredScrollTop;
 ```
@@ -808,8 +815,8 @@ const StyledApp = styled(App)`
 export default StyledApp;
 ```
 
-Material-UI - Back to top  
-<https://material-ui.com/components/app-bar/#back-to-top>
+[Material-UI - Back to top](https://material-ui.com/components/app-bar/#back-to-top)  
+[MDN - Element.scrollIntoView()](https://developer.mozilla.org/ja/docs/Web/API/Element/scrollIntoView)
 
 ## VSCode の設定について
 

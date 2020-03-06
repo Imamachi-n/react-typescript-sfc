@@ -17,7 +17,10 @@ const TopPage: React.FC<Props> = props => {
 
   return (
     <div className={className}>
+      <div id="firstContents" />
       <StyledFirstContents />
+
+      <div id="secondContents" />
       <StyledSecondContents />
     </div>
   );

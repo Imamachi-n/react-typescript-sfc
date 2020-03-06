@@ -2,7 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TypographyText } from 'components/Common/Typography/Text';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
+import { ContaineredAnchorScroll } from 'components/Common/AnchorScroll';
 
 // 2. Types Layer
 type Props = {
@@ -17,9 +18,13 @@ const Title: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <TypographyText variant="h6">
-        <Box fontWeight="fontWeightBold">React & TypeScript SFC</Box>
-      </TypographyText>
+      <ContaineredAnchorScroll anchorId="#firstContents">
+        <Button color="inherit">
+          <TypographyText variant="h6">
+            <Box fontWeight="fontWeightBold">React & TypeScript SFC</Box>
+          </TypographyText>
+        </Button>
+      </ContaineredAnchorScroll>
     </div>
   );
 };
