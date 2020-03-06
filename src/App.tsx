@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import { StyledScrollTopButton } from 'components/Common/ScrollTop/ScrollTopButton';
 import { StyledTopPage } from './components/TopPage';
 import { StyledMenu } from './components/Menu';
 import GlobalStyle from './styles/BaseStyle';
@@ -20,10 +21,14 @@ const App: React.FC<Props> = props => {
   return (
     <Router>
       <div className={className}>
+        {/* Global CSS settings */}
         <GlobalStyle />
 
+        {/* MenuBar */}
         <StyledMenu />
+        <div id="back-to-top-anchor" />
 
+        {/* Router */}
         <Switch>
           <Route exact path="/">
             <StyledTopPage />
@@ -35,6 +40,9 @@ const App: React.FC<Props> = props => {
             </div>
           </Route>
         </Switch>
+
+        {/* ScrollToTop Button */}
+        <StyledScrollTopButton />
       </div>
     </Router>
   );

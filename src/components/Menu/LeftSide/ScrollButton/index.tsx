@@ -18,7 +18,7 @@ const ScrollButton: React.FC<Props> = props => {
   return (
     <div className={className}>
       <Button color="inherit">
-        <ArrowDownwardIcon />
+        <ArrowDownwardIcon className="icon" />
         Scroll
       </Button>
     </div>
@@ -30,6 +30,10 @@ export const StyledScrollButton = styled(ScrollButton)`
   display: flex;
   align-items: center;
   margin-left: 1rem;
+
+  .icon {
+    margin-right: 4px;
+  }
 `;
 
 export default StyledScrollButton;

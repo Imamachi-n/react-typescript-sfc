@@ -18,7 +18,7 @@ const ApiButton: React.FC<Props> = props => {
   return (
     <div className={className}>
       <Button color="inherit">
-        <LanguageIcon />
+        <LanguageIcon className="icon" />
         API CALL
       </Button>
     </div>
@@ -30,6 +30,10 @@ export const StyledApiButton = styled(ApiButton)`
   display: flex;
   align-items: center;
   margin-left: 0.5rem;
+
+  .icon {
+    margin-right: 4px;
+  }
 `;
 
 export default StyledApiButton;

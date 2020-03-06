@@ -22,7 +22,7 @@ const Item: React.FC<Props> = props => {
   return (
     <div className={className}>
       <TypographyPrimary variant="h5">
-        <Box fontWeight="fontWeightBold" m={1}>
+        <Box className="detailtitle" fontWeight="fontWeightBold" m={1}>
           {title}
         </Box>
       </TypographyPrimary>
@@ -36,6 +36,10 @@ const Item: React.FC<Props> = props => {
 export const StyledItem = styled(Item)`
   margin-right: 1rem;
   margin-left: 1rem;
+
+  .detailtitle {
+    margin-left: 0;
+  }
 `;
 
 export default StyledItem;

@@ -18,7 +18,7 @@ const ToDoButton: React.FC<Props> = props => {
   return (
     <div className={className}>
       <Button color="inherit">
-        <FormatListBulletedIcon />
+        <FormatListBulletedIcon className="icon" />
         TODO
       </Button>
     </div>
@@ -30,6 +30,10 @@ export const StyledToDoButton = styled(ToDoButton)`
   display: flex;
   align-items: center;
   margin-left: 0.5rem;
+
+  .icon {
+    margin-right: 4px;
+  }
 `;
 
 export default StyledToDoButton;

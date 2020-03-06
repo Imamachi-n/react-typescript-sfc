@@ -17,7 +17,6 @@ const RightSide: React.FC<Props> = props => {
   return (
     <div className={className}>
       <StyledGitHubLink />
-      <StyledGitHubLink />
     </div>
   );
 };
