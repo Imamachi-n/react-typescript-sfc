@@ -1,6 +1,8 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
+import { StyledPageTitle } from 'components/TodoPage/Title';
+import { Container } from '@material-ui/core';
 
 // 2. Types Layer
 type Props = {
@@ -15,7 +17,9 @@ const TodoPage: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <p>TODO</p>
+      <Container>
+        <StyledPageTitle />
+      </Container>
     </div>
   );
 };

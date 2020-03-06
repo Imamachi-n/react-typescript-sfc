@@ -1,8 +1,6 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
-import { StyledPageTitle } from 'components/ApiPage/Title';
-import { Container } from '@material-ui/core';
 
 // 2. Types Layer
 type Props = {
@@ -12,22 +10,17 @@ type Props = {
 };
 
 // 3. DOM Layer
-const ApiPage: React.FC<Props> = props => {
+const TodoList: React.FC<Props> = props => {
   const { className } = props;
 
   return (
     <div className={className}>
-      <Container>
-        <StyledPageTitle />
-      </Container>
+      <p>TODO</p>
     </div>
   );
 };
 
 // 4. Style Layer
-export const StyledApiPage = styled(ApiPage)`
-  margin-top: 64px;
-  min-height: calc(100vh + 64px);
-`;
+export const StyledTodoList = styled(TodoList)``;
 
-export default StyledApiPage;
+export default StyledTodoList;

@@ -27,6 +27,8 @@ const SecondContents: React.FC<Props> = props => {
 // 4. Style Layer
 export const StyledSecondContents = styled(SecondContents)`
   min-height: 90vh;
+  /* padding-top: 50px;
+  padding-bottom: 50px; */
 `;
 
 export default StyledSecondContents;

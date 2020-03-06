@@ -1,6 +1,7 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
+import { Hidden } from '@material-ui/core';
 import { ContaineredTitle } from './Title';
 import { ContaineredScrollButton } from './ScrollButton';
 import { ContaineredToDoButton } from './TodoButton';
@@ -20,9 +21,11 @@ const LeftSide: React.FC<Props> = props => {
   return (
     <div className={className}>
       <ContaineredTitle />
-      <ContaineredScrollButton />
-      <ContaineredToDoButton />
-      <ContaineredApiButton />
+      <Hidden smDown>
+        <ContaineredScrollButton />
+        <ContaineredToDoButton />
+        <ContaineredApiButton />
+      </Hidden>
     </div>
   );
 };

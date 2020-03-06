@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { StyledScrollTopButton } from 'components/Common/ScrollTop/ScrollTopButton';
 import { StyledApiPage } from 'components/ApiPage';
 import ScrollRestoration from 'components/Common/ScrollRestoration';
+import { StyledBottomNavigation } from 'components/BottomNavigation';
 import { StyledTodoPage } from './components/TodoPage';
 import { StyledTopPage } from './components/TopPage';
 import { StyledMenu } from './components/Menu';
@@ -51,6 +52,9 @@ const App: React.FC<Props> = props => {
 
         {/* ScrollToTop Button */}
         <StyledScrollTopButton />
+
+        {/* BottomNavigation */}
+        <StyledBottomNavigation />
       </div>
     </Router>
   );
