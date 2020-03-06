@@ -40,6 +40,7 @@
       - [テーマカラーを設定する](#%e3%83%86%e3%83%bc%e3%83%9e%e3%82%ab%e3%83%a9%e3%83%bc%e3%82%92%e8%a8%ad%e5%ae%9a%e3%81%99%e3%82%8b)
       - [上部に固定されたヘッダーを作成](#%e4%b8%8a%e9%83%a8%e3%81%ab%e5%9b%ba%e5%ae%9a%e3%81%95%e3%82%8c%e3%81%9f%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e3%82%92%e4%bd%9c%e6%88%90)
       - [Grid React component のスクリーンサイズに応じた調節](#grid-react-component-%e3%81%ae%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b5%e3%82%a4%e3%82%ba%e3%81%ab%e5%bf%9c%e3%81%98%e3%81%9f%e8%aa%bf%e7%af%80)
+      - [画面トップへスクロールして戻るボタン](#%e7%94%bb%e9%9d%a2%e3%83%88%e3%83%83%e3%83%97%e3%81%b8%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%97%e3%81%a6%e6%88%bb%e3%82%8b%e3%83%9c%e3%82%bf%e3%83%b3)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
     - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
@@ -656,6 +657,159 @@ export default function ElevationScroll(props: ScrollProps) {
 **参考資料**  
 [Grid - How it works](https://material-ui.com/components/grid/#how-it-works)  
 [Grid API](https://material-ui.com/api/grid/)
+
+#### 画面トップへスクロールして戻るボタン
+
+**ScrollTop コンポーネント**
+
+```tsx
+// 1. Import Layer
+import React from 'react';
+import styled from 'styled-components';
+import { useScrollTrigger, Zoom } from '@material-ui/core';
+
+type ContainerProps = {
+  children: React.ReactElement;
+};
+
+type Props = {
+  className?: string;
+  trigger: boolean;
+  handleClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+} & ContainerProps;
+
+// 3. DOM Layer
+const ScrollTop: React.FC<Props> = props => {
+  const { className, children, trigger, handleClick } = props;
+
+  return (
+    <>
+      <Zoom in={trigger}>
+        <div className={className} onClick={handleClick} role="presentation">
+          {children}
+        </div>
+      </Zoom>
+    </>
+  );
+};
+
+// 4. Style Layer
+export const StyledScrollTop = styled(ScrollTop)`
+  position: fixed;
+  bottom: ${props => props.theme.spacing(2)}px;
+  right: ${props => props.theme.spacing(2)}px;
+`;
+
+// 5. Container Layer
+export function ContaineredScrollTop(props: ContainerProps) {
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    // TODO: アンカーに`id="#back-to-top-anchor"`を設定する必要あり。
+    const anchor = (
+      (event.target as HTMLDivElement).ownerDocument || document
+    ).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  return (
+    <StyledScrollTop {...props} trigger={trigger} handleClick={handleClick} />
+  );
+}
+
+export default ContaineredScrollTop;
+```
+
+**ScrollTopButton コンポーネント**
+
+```tsx
+// 1. Import Layer
+import React from 'react';
+import styled from 'styled-components';
+import { ContaineredScrollTop } from 'components/Common/ScrollTop';
+import { Fab } from '@material-ui/core';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+
+// 2. Types Layer
+type Props = {
+  className?: string;
+};
+
+// 3. DOM Layer
+const ScrollTopButton: React.FC<Props> = props => {
+  const { className } = props;
+
+  return (
+    <div className={className}>
+      <ContaineredScrollTop {...props}>
+        <Fab color="primary" size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ContaineredScrollTop>
+    </div>
+  );
+};
+
+// 4. Style Layer
+export const StyledScrollTopButton = styled(ScrollTopButton)``;
+
+export default StyledScrollTopButton;
+```
+
+**使用例**
+
+```tsx
+// 1. Import Layer
+import React from 'react';
+import styled from 'styled-components';
+import { StyledScrollTopButton } from 'components/Common/ScrollTop/ScrollTopButton';
+import { Menu } from './components/Menu';
+import { Contents } from './components/Contents';
+
+// 2. Types Layer
+type Props = {
+  className?: string;
+};
+
+// 3. DOM Layer
+const App: React.FC<Props> = props => {
+  const { className } = props;
+
+  return (
+    <Router>
+      <div className={className}>
+        <Menu />
+
+        {/* Anchor for ScrollToTop */}
+        <div id="back-to-top-anchor" />
+
+        <Contents />
+
+        {/* ScrollToTop Button */}
+        <StyledScrollTopButton />
+      </div>
+    </Router>
+  );
+};
+
+// 4. Style Layer
+const StyledApp = styled(App)`
+  background-color: #282c34;
+  font-size: calc(10px + 2vmin);
+  color: white;
+`;
+
+export default StyledApp;
+```
+
+Material-UI - Back to top  
+<https://material-ui.com/components/app-bar/#back-to-top>
 
 ## VSCode の設定について
 
