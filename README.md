@@ -8,6 +8,7 @@
 
 - [Typescript & React で Single File Components](#typescript--react-%e3%81%a7-single-file-components)
   - [目次](#%e7%9b%ae%e6%ac%a1)
+  - [デモ](#%e3%83%87%e3%83%a2)
   - [詳細](#%e8%a9%b3%e7%b4%b0)
     - [TypeScript & React のプロジェクトを作成](#typescript--react-%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90)
     - [絶対パスで React コンポーネントをインポートできるようにする](#%e7%b5%b6%e5%af%be%e3%83%91%e3%82%b9%e3%81%a7-react-%e3%82%b3%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%8d%e3%83%b3%e3%83%88%e3%82%92%e3%82%a4%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%88%e3%81%a7%e3%81%8d%e3%82%8b%e3%82%88%e3%81%86%e3%81%ab%e3%81%99%e3%82%8b)
@@ -51,6 +52,12 @@
   - [公式ドキュメント](#%e5%85%ac%e5%bc%8f%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88)
 
 <!-- /TOC -->
+
+## デモ
+
+**トップページ - スクロール**
+
+![React_SFC_1](./img/React_SFC_1.gif)
 
 ## 詳細
 
