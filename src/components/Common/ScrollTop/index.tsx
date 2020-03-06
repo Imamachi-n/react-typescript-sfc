@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useScrollTrigger, Zoom } from '@material-ui/core';
+import { anchorScroll } from 'services/anchorScroll';
 
 // 2. Type Layer
 type ContainerProps = {
@@ -46,14 +47,7 @@ export const ContaineredScrollTop: React.FC<ContainerProps> = props => {
   });
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    // TODO: アンカーに`id="#back-to-top-anchor"`を設定する必要あり。
-    const anchor = (
-      (event.target as HTMLDivElement).ownerDocument || document
-    ).querySelector('#back-to-top-anchor');
-
-    if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    anchorScroll(event, '#back-to-top-anchor', 'center');
   };
 
   return (

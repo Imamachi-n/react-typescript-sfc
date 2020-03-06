@@ -9,7 +9,7 @@ import {
 import LanguageIcon from '@material-ui/icons/Language';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import { ContaineredAnchorScroll } from 'components/Common/AnchorScroll';
+import { anchorScroll } from 'services/anchorScroll';
 
 // 2. Types Layer
 type Props = {
@@ -24,14 +24,7 @@ const BottomNavi: React.FC<Props> = props => {
   const [value, setValue] = React.useState(0);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    // TODO: アンカーに`id="${props.anchorId}"`を設定する必要あり。
-    const anchor = (
-      (event.target as HTMLDivElement).ownerDocument || document
-    ).querySelector('#secondContents');
-
-    if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    anchorScroll(event, '#secondContents', 'start');
   };
 
   return (
