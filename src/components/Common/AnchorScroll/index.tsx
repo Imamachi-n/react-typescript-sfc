@@ -6,6 +6,7 @@ import styled from 'styled-components';
 type ContainerProps = {
   children: React.ReactElement;
   anchorId: string;
+  scrollBlock: 'end' | 'start' | 'center' | 'nearest' | undefined;
 };
 
 type Props = {
@@ -31,7 +32,7 @@ const StyledAnchorScroll = styled(AnchorScroll)``;
 
 // 5. Container Layer
 export const ContaineredAnchorScroll: React.FC<ContainerProps> = props => {
-  const { anchorId } = props;
+  const { anchorId, scrollBlock } = props;
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     // TODO: アンカーに`id="${props.anchorId}"`を設定する必要あり。
@@ -40,7 +41,7 @@ export const ContaineredAnchorScroll: React.FC<ContainerProps> = props => {
     ).querySelector(anchorId);
 
     if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      anchor.scrollIntoView({ behavior: 'smooth', block: scrollBlock });
     }
   };
 

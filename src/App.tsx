@@ -3,7 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { StyledScrollTopButton } from 'components/Common/ScrollTop/ScrollTopButton';
-import StyledTodoPage from 'components/TodoPage';
+import { StyledApiPage } from 'components/ApiPage';
+import ScrollRestoration from 'components/Common/ScrollRestoration';
+import { StyledTodoPage } from './components/TodoPage';
 import { StyledTopPage } from './components/TopPage';
 import { StyledMenu } from './components/Menu';
 import GlobalStyle from './styles/BaseStyle';
@@ -25,6 +27,9 @@ const App: React.FC<Props> = props => {
         {/* Global CSS settings */}
         <GlobalStyle />
 
+        {/* Scroll Restoration */}
+        <ScrollRestoration />
+
         {/* MenuBar */}
         <StyledMenu />
         <div id="back-to-top-anchor" />
@@ -35,8 +40,12 @@ const App: React.FC<Props> = props => {
             <StyledTopPage />
           </Route>
 
-          <Route exact path="/todo">
+          <Route path="/todo">
             <StyledTodoPage />
+          </Route>
+
+          <Route path="/api">
+            <StyledApiPage />
           </Route>
         </Switch>
 

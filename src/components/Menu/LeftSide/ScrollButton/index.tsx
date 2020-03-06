@@ -22,7 +22,7 @@ const ScrollButton: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <ContaineredAnchorScroll anchorId="#secondContents">
+      <ContaineredAnchorScroll anchorId="#secondContents" scrollBlock="start">
         <Button color="inherit" onClick={handleClick}>
           <ArrowDownwardIcon className="icon" />
           Scroll

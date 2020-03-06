@@ -22,7 +22,7 @@ const Title: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <ContaineredAnchorScroll anchorId="#firstContents">
+      <ContaineredAnchorScroll anchorId="#firstContents" scrollBlock="center">
         <Button color="inherit" onClick={handleClick}>
           <TypographyText variant="h6">
             <Box fontWeight="fontWeightBold">React & TypeScript SFC</Box>

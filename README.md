@@ -33,6 +33,7 @@
     - [Redux の導入](#redux-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [複数の reducer を結合する](#%e8%a4%87%e6%95%b0%e3%81%ae-reducer-%e3%82%92%e7%b5%90%e5%90%88%e3%81%99%e3%82%8b)
     - [React Router の導入](#react-router-%e3%81%ae%e5%b0%8e%e5%85%a5)
+      - [画面遷移時のスクロール位置の初期化](#%e7%94%bb%e9%9d%a2%e9%81%b7%e7%a7%bb%e6%99%82%e3%81%ae%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab%e4%bd%8d%e7%bd%ae%e3%81%ae%e5%88%9d%e6%9c%9f%e5%8c%96)
       - [React Router と Redux の統合](#react-router-%e3%81%a8-redux-%e3%81%ae%e7%b5%b1%e5%90%88)
     - [Styled-components の導入](#styled-components-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [Global CSS を指定する方法](#global-css-%e3%82%92%e6%8c%87%e5%ae%9a%e3%81%99%e3%82%8b%e6%96%b9%e6%b3%95)
@@ -524,6 +525,45 @@ yarn add react-router-dom @types/react-router-dom
 
 React Router - Quick Start  
 <https://reacttraining.com/react-router/web/guides/quick-start>
+
+#### 画面遷移時のスクロール位置の初期化
+
+デフォルトの設定では、画面遷移時に前のページのスクロール位置が残ってしまい、ページの最上部から表示されない問題が発生する。
+
+以下の設定を追加し、問題を解消する必要がある。
+
+```tsx
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+export default function ScrollRestoration() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+```
+
+```tsx
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import ScrollRestoration from 'components/Common/ScrollRestoration';
+
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <App />
+    </Router>
+  );
+}
+```
+
+React Router - Scroll Restoration  
+<https://reacttraining.com/react-router/web/guides/scroll-restoration>
 
 #### React Router と Redux の統合
 
