@@ -26,8 +26,8 @@ const TodoPage: React.FC<Props> = props => {
 
 // 4. Style Layer
 export const StyledTodoPage = styled(TodoPage)`
-  margin-top: 64px;
-  min-height: calc(100vh + 64px);
+  margin-top: 56px;
+  min-height: calc(100vh + 56px);
 `;
 
 export default StyledTodoPage;

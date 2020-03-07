@@ -13,11 +13,11 @@ type Props = {
   // When defining a component you will need to mark className as optional in your Props
   // https://styled-components.com/docs/api#caveat-with-classname
   className?: string;
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 } & ContainerProps;
 
 // 3. DOM Layer
-const Title: React.FC<Props> = props => {
+export const Title: React.FC<Props> = props => {
   const { className, handleClick } = props;
 
   return (

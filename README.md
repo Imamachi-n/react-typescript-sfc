@@ -9,6 +9,8 @@
 - [Typescript & React で Single File Components](#typescript--react-%e3%81%a7-single-file-components)
   - [目次](#%e7%9b%ae%e6%ac%a1)
   - [デモ](#%e3%83%87%e3%83%a2)
+      - [トップページ - スクロール](#%e3%83%88%e3%83%83%e3%83%97%e3%83%9a%e3%83%bc%e3%82%b8---%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab)
+      - [レスポンシブ UI（Mobile 用と Desktop 用）](#%e3%83%ac%e3%82%b9%e3%83%9d%e3%83%b3%e3%82%b7%e3%83%96-uimobile-%e7%94%a8%e3%81%a8-desktop-%e7%94%a8)
   - [詳細](#%e8%a9%b3%e7%b4%b0)
     - [TypeScript & React のプロジェクトを作成](#typescript--react-%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90)
     - [絶対パスで React コンポーネントをインポートできるようにする](#%e7%b5%b6%e5%af%be%e3%83%91%e3%82%b9%e3%81%a7-react-%e3%82%b3%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%8d%e3%83%b3%e3%83%88%e3%82%92%e3%82%a4%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%88%e3%81%a7%e3%81%8d%e3%82%8b%e3%82%88%e3%81%86%e3%81%ab%e3%81%99%e3%82%8b)
@@ -57,9 +59,19 @@
 
 ## デモ
 
-**トップページ - スクロール**
+#### トップページ - スクロール
+
+- ランディングページによくある、リンクをクリックすると自動スクロールされる仕組み。
+- トップページの先頭に戻るボタンを表示（スクロールをトリガーにする）。
 
 ![React_SFC_1](./img/React_SFC_1.gif)
+
+#### レスポンシブ UI（Mobile 用と Desktop 用）
+
+- Desktop 用の画面では、ナビゲーションをページ上部に表示させる。
+- Mobile 用の画面では、ナビゲーションをページ下部に表示させる（指で押しやすいため）。
+
+![React_SFC_2](./img/React_SFC_2.gif)
 
 ## 詳細
 
@@ -714,6 +726,53 @@ mdDown      |                     hide | show
 [Grid API](https://material-ui.com/api/grid/)
 
 #### 画面サイズに合わせて、React コンポーネントを表示・非表示をコントロール
+
+Mobile 用と Desktop 用で画面の表示を切り替えるのに有用。
+
+```tsx
+// 1. Import Layer
+import React from 'react';
+import styled from 'styled-components';
+import { Hidden } from '@material-ui/core';
+import { ContaineredTitle, Title } from './Title';
+import { ContaineredScrollButton } from './ScrollButton';
+import { ContaineredToDoButton } from './TodoButton';
+import { ContaineredApiButton } from './ApiButton';
+
+// 2. Types Layer
+type Props = {
+  className?: string;
+};
+
+// 3. DOM Layer
+const LeftSide: React.FC<Props> = props => {
+  const { className } = props;
+
+  return (
+    <div className={className}>
+      {/* For mobile */}
+      <Hidden mdUp>
+        <Title />
+      </Hidden>
+
+      {/* For Desktop */}
+      <Hidden smDown>
+        <ContaineredTitle />
+        <ContaineredScrollButton />
+        <ContaineredToDoButton />
+        <ContaineredApiButton />
+      </Hidden>
+    </div>
+  );
+};
+
+// 4. Style Layer
+export const StyledLeftSide = styled(LeftSide)`
+  display: flex;
+`;
+
+export default StyledLeftSide;
+```
 
 Material-UI - Hidden  
 <https://material-ui.com/components/hidden/#breakpoint-up>

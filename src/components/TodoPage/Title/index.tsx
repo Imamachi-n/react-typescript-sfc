@@ -30,7 +30,7 @@ const PageTitle: React.FC<Props> = props => {
 export const StyledPageTitle = styled(PageTitle)`
   display: flex;
   align-items: center;
-  padding-top: 15px;
+  padding-top: 20px;
 
   .icon {
     color: ${props => props.theme.palette.primary.main};

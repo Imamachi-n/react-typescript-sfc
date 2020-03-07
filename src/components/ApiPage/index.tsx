@@ -26,8 +26,8 @@ const ApiPage: React.FC<Props> = props => {
 
 // 4. Style Layer
 export const StyledApiPage = styled(ApiPage)`
-  margin-top: 64px;
-  min-height: calc(100vh + 64px);
+  margin-top: 56px;
+  min-height: calc(100vh + 56px);
 `;
 
 export default StyledApiPage;

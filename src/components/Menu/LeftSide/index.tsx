@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Hidden } from '@material-ui/core';
-import { ContaineredTitle } from './Title';
+import { ContaineredTitle, Title } from './Title';
 import { ContaineredScrollButton } from './ScrollButton';
 import { ContaineredToDoButton } from './TodoButton';
 import { ContaineredApiButton } from './ApiButton';
@@ -20,8 +20,14 @@ const LeftSide: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <ContaineredTitle />
+      {/* For mobile */}
+      <Hidden mdUp>
+        <Title />
+      </Hidden>
+
+      {/* For Desktop */}
       <Hidden smDown>
+        <ContaineredTitle />
         <ContaineredScrollButton />
         <ContaineredToDoButton />
         <ContaineredApiButton />
