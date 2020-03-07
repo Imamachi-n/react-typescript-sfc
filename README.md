@@ -46,6 +46,8 @@
       - [Grid React component のスクリーンサイズに応じた調節](#grid-react-component-%e3%81%ae%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b5%e3%82%a4%e3%82%ba%e3%81%ab%e5%bf%9c%e3%81%98%e3%81%9f%e8%aa%bf%e7%af%80)
       - [画面サイズに合わせて、React コンポーネントを表示・非表示をコントロール](#%e7%94%bb%e9%9d%a2%e3%82%b5%e3%82%a4%e3%82%ba%e3%81%ab%e5%90%88%e3%82%8f%e3%81%9b%e3%81%a6react-%e3%82%b3%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%8d%e3%83%b3%e3%83%88%e3%82%92%e8%a1%a8%e7%a4%ba%e3%83%bb%e9%9d%9e%e8%a1%a8%e7%a4%ba%e3%82%92%e3%82%b3%e3%83%b3%e3%83%88%e3%83%ad%e3%83%bc%e3%83%ab)
       - [画面トップへスクロールして戻るボタン](#%e7%94%bb%e9%9d%a2%e3%83%88%e3%83%83%e3%83%97%e3%81%b8%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%97%e3%81%a6%e6%88%bb%e3%82%8b%e3%83%9c%e3%82%bf%e3%83%b3)
+    - [React Helmet の導入](#react-helmet-%e3%81%ae%e5%b0%8e%e5%85%a5)
+      - [ヘッダー情報を追加する](#%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e6%83%85%e5%a0%b1%e3%82%92%e8%bf%bd%e5%8a%a0%e3%81%99%e3%82%8b)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
     - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
@@ -105,15 +107,15 @@ Adding TypeScript
 import Button from 'components/Button';
 ```
 
-VSCode を使っている場合、絶対パスを使用すると `Cannot find module` と怒られるはずなので、VSCode の `settings.json` に以下の設定を追加する。
+<!-- VSCode を使っている場合、絶対パスを使用すると `Cannot find module` と怒られるはずなので、VSCode の `settings.json` に以下の設定を追加する。
 
 ```json
 {
   "typescript.preferences.importModuleSpecifier": "non-relative"
 }
-```
+``` -->
 
-さらに、パスの補完が効かなくなるので、`path-intellisense` を拡張機能として追加する。
+おそらく、絶対パスにすると補完が効かなくなるので、さらに、`path-intellisense` を拡張機能として追加する。
 
 **参考資料**  
 [Create React App - Absolute Imports](https://create-react-app.dev/docs/importing-a-component/#absolute-imports)  
@@ -140,6 +142,8 @@ eslint-plugin-prefer-arrow \
 eslint-plugin-prettier \
 @types/eslint-plugin-prettier
 ```
+
+以下の各種設定を 設定ファイル `.eslitrc.js` に記述する。デフォルトの `.eslitrc` の JSON ファイルの場合、キーにいちいちダブルクオーテーションをつけないといけないので、`JSファイル` にしたほうが書きやすいと思う。
 
 #### eslint-config-airbnb
 
@@ -929,6 +933,41 @@ export default StyledApp;
 
 [Material-UI - Back to top](https://material-ui.com/components/app-bar/#back-to-top)  
 [MDN - Element.scrollIntoView()](https://developer.mozilla.org/ja/docs/Web/API/Element/scrollIntoView)
+
+### React Helmet の導入
+
+```bash
+yarn add react-helmet @types/react-helmet
+```
+
+#### ヘッダー情報を追加する
+
+メタ情報やタイトルなどをヘッダー情報として追加することができる。
+
+```tsx
+// 1. Import Layer
+import React from 'react';
+import { Helmet } from 'react-helmet';
+
+// 2. Types Layer
+type Props = {};
+
+// 3. DOM Layer
+export const Header: React.FC<Props> = () => {
+  return (
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>React & TypeScript SFC - TopPage</title>
+        <link
+          rel="GitHub"
+          href="https://github.com/Imamachi-n/react-typescript-sfc"
+        />
+      </Helmet>
+    </>
+  );
+};
+```
 
 ## VSCode の設定について
 

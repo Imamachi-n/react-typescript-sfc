@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { StyledFirstContents } from './FirstContents';
 import { StyledSecondContents } from './SecondContents';
+import { Header } from '../Common/Header';
 
 // 2. Types Layer
 type Props = {
@@ -17,6 +18,8 @@ const TopPage: React.FC<Props> = props => {
 
   return (
     <div className={className}>
+      <Header pageName="TopPage" />
+
       <div id="firstContents" />
       <StyledFirstContents />
 
