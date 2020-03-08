@@ -12,7 +12,6 @@
       - [トップページ - スクロール](#%e3%83%88%e3%83%83%e3%83%97%e3%83%9a%e3%83%bc%e3%82%b8---%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab)
       - [レスポンシブ UI（Mobile 用と Desktop 用）](#%e3%83%ac%e3%82%b9%e3%83%9d%e3%83%b3%e3%82%b7%e3%83%96-uimobile-%e7%94%a8%e3%81%a8-desktop-%e7%94%a8)
   - [詳細](#%e8%a9%b3%e7%b4%b0)
-  - [Docker 上で開発環境をセットアップする](#docker-%e4%b8%8a%e3%81%a7%e9%96%8b%e7%99%ba%e7%92%b0%e5%a2%83%e3%82%92%e3%82%bb%e3%83%83%e3%83%88%e3%82%a2%e3%83%83%e3%83%97%e3%81%99%e3%82%8b)
     - [TypeScript & React のプロジェクトを作成](#typescript--react-%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90)
     - [絶対パスで React コンポーネントをインポートできるようにする](#%e7%b5%b6%e5%af%be%e3%83%91%e3%82%b9%e3%81%a7-react-%e3%82%b3%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%8d%e3%83%b3%e3%83%88%e3%82%92%e3%82%a4%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%88%e3%81%a7%e3%81%8d%e3%82%8b%e3%82%88%e3%81%86%e3%81%ab%e3%81%99%e3%82%8b)
     - [ESLint & Prettier の導入](#eslint--prettier-%e3%81%ae%e5%b0%8e%e5%85%a5)
@@ -49,6 +48,8 @@
       - [画面トップへスクロールして戻るボタン](#%e7%94%bb%e9%9d%a2%e3%83%88%e3%83%83%e3%83%97%e3%81%b8%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%97%e3%81%a6%e6%88%bb%e3%82%8b%e3%83%9c%e3%82%bf%e3%83%b3)
     - [React Helmet の導入](#react-helmet-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [ヘッダー情報を追加する](#%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e6%83%85%e5%a0%b1%e3%82%92%e8%bf%bd%e5%8a%a0%e3%81%99%e3%82%8b)
+    - [Storybook for React(Create React App 用)](#storybook-for-reactcreate-react-app-%e7%94%a8)
+    - [Docker 上で開発環境をセットアップする](#docker-%e4%b8%8a%e3%81%a7%e9%96%8b%e7%99%ba%e7%92%b0%e5%a2%83%e3%82%92%e3%82%bb%e3%83%83%e3%83%88%e3%82%a2%e3%83%83%e3%83%97%e3%81%99%e3%82%8b)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
     - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
@@ -77,52 +78,6 @@
 ![React_SFC_2](./img/React_SFC_2.gif)
 
 ## 詳細
-
-## Docker 上で開発環境をセットアップする
-
-`docker/node/Dockerfile` を用意する。
-
-```docker
-FROM node:12.16.1-alpine3.11
-WORKDIR /usr/src/app
-```
-
-`docker-compose.yml` ファイルを用意する。
-
-```docker
-version: '3'
-services:
-  web:
-    build:
-      context: ./docker/node
-      dockerfile: Dockerfile
-    volumes:
-      - ./:/usr/src/app
-    command: sh -c "yarn start"
-    ports:
-      - '3000:3000'
-```
-
-`package.json` ファイルに以下を追加する。
-
-```json
-{
-  "scripts": {
-    "dbuild": "docker-compose build",
-    "dinstall": "docker-compose run --rm web sh -c 'yarn install'",
-    "drun": "docker-compose up",
-    "dstop": "docker-compose down"
-  }
-}
-```
-
-`yarn dbuild` で Docker コンテナをビルドする。  
-`yarn dinstall` で Docker コンテナ内で`yarn install` を実行する（少なくとも、Docker for MacOS では遅くて使い物にならない…。10 数分かかる…）。  
-`yarn drun` で Docker コンテナを起動する。  
-`yarn dstop` で Docker コンテナを停止する。
-
-Docker 環境内で create-react-app  
-<https://qiita.com/mii288/items/aac597bc02575831ea90>
 
 ### TypeScript & React のプロジェクトを作成
 
@@ -1018,6 +973,77 @@ export const Header: React.FC<Props> = () => {
 
 React Helmet の使い方  
 <https://github.com/nfl/react-helmet#example>
+
+### Storybook for React(Create React App 用)
+
+以下のコマンドを実行すると、Storybook を動かすのに必要なパッケージやファイル・コマンド群をすべて自動で用意してくれます（TypeScript への対応もやってくれる）。
+
+```bash
+npx -p @storybook/cli sb init --type react_scripts
+```
+
+`.storybook/main.js` ファイルを以下の通り書き換える。`stories: ['../src/**/*.stories.js']` を `stories: ['../src/**/*.stories.tsx']` に変更するだけ。
+
+```js
+module.exports = {
+  stories: ['../src/**/*.stories.tsx'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+  ],
+};
+```
+
+**参考文献**  
+[Storybook - Storybook for React](https://storybook.js.org/docs/guides/guide-react/)  
+[Storybook - TypeScript Config](https://storybook.js.org/docs/configurations/typescript-config/)
+
+### Docker 上で開発環境をセットアップする
+
+`docker/node/Dockerfile` を用意する。
+
+```docker
+FROM node:12.16.1-alpine3.11
+WORKDIR /usr/src/app
+```
+
+`docker-compose.yml` ファイルを用意する。
+
+```docker
+version: '3'
+services:
+  web:
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    command: sh -c "yarn start"
+    ports:
+      - '3000:3000'
+```
+
+`package.json` ファイルに以下を追加する。
+
+```json
+{
+  "scripts": {
+    "dbuild": "docker-compose build",
+    "dinstall": "docker-compose run --rm web sh -c 'yarn install'",
+    "drun": "docker-compose up",
+    "dstop": "docker-compose down"
+  }
+}
+```
+
+`yarn dbuild` で Docker コンテナをビルドする。  
+`yarn dinstall` で Docker コンテナ内で`yarn install` を実行する（少なくとも、Docker for MacOS では遅くて使い物にならない…。10 数分かかる…）。  
+`yarn drun` で Docker コンテナを起動する。  
+`yarn dstop` で Docker コンテナを停止する。
+
+Docker 環境内で create-react-app  
+<https://qiita.com/mii288/items/aac597bc02575831ea90>
 
 ## VSCode の設定について
 

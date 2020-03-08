@@ -10,13 +10,20 @@
     "dbuild": "docker-compose build",
     "dinstall": "docker-compose run --rm web sh -c 'yarn install'",
     "drun": "docker-compose up",
-    "dstop": "docker-compose down"
+    "dstop": "docker-compose down",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/styles": "^4.9.0",
     "@reduxjs/toolkit": "^1.2.5",
+    "@storybook/addon-links": "^5.3.14",
+    "@storybook/addon-actions": "^5.3.14",
+    "@storybook/addons": "^5.3.14",
+    "@storybook/preset-create-react-app": "^2.0.0",
+    "@storybook/react": "^5.3.14",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",

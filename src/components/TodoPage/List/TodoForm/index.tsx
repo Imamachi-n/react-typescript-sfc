@@ -1,6 +1,7 @@
 // 1. Import Layer
 import React from 'react';
 import styled from 'styled-components';
+import { TextField } from '@material-ui/core';
 
 // 2. Types Layer
 type Props = {
@@ -15,7 +16,7 @@ const TodoForm: React.FC<Props> = props => {
 
   return (
     <div className={className}>
-      <p>test</p>
+      <TextField id="outlined-basic" label="Task" variant="outlined" />
     </div>
   );
 };
