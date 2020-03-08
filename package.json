@@ -6,12 +6,17 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dbuild": "docker-compose build",
+    "dinstall": "docker-compose run --rm web sh -c 'yarn install'",
+    "drun": "docker-compose up",
+    "dstop": "docker-compose down"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.5",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/styles": "^4.9.0",
+    "@reduxjs/toolkit": "^1.2.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
