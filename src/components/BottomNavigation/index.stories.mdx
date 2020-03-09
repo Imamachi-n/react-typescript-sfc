@@ -1,0 +1,21 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { StyledBottomNavi } from 'components/BottomNavigation';
+
+<Meta title="MDX/BottomNavi" component={StyledBottomNavi} />
+
+# Checkbox
+
+With `MDX` we can define a story for `Checkbox` right in the middle of our
+markdown documentation.
+
+<Preview>
+  <Story name="Botom Navi">
+    <StyledBottomNavi
+      handleClick4Home={action('Home')}
+      handleClick4Scroll={action('Scroll')}
+      handleClick4Todo={action('Todo')}
+      handleClick4Api={action('Api')}
+    />
+  </Story>
+</Preview>

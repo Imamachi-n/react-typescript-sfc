@@ -1,6 +1,7 @@
 # Typescript & React で Single File Components
 
-経年劣化に耐える React のソフトウェア設計を考えるためのサンプルプロジェクト。参考資料で示した Qiita の記事を大いに参考にしました。
+経年劣化に耐える React のソフトウェア設計を考えるためのサンプルプロジェクト。  
+また、学習目的で、実際に React を使ってアプリケーション開発を行う上で必要だと思ったものをまとめてみました。
 
 ## 目次
 
@@ -48,7 +49,9 @@
       - [画面トップへスクロールして戻るボタン](#%e7%94%bb%e9%9d%a2%e3%83%88%e3%83%83%e3%83%97%e3%81%b8%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%97%e3%81%a6%e6%88%bb%e3%82%8b%e3%83%9c%e3%82%bf%e3%83%b3)
     - [React Helmet の導入](#react-helmet-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [ヘッダー情報を追加する](#%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e6%83%85%e5%a0%b1%e3%82%92%e8%bf%bd%e5%8a%a0%e3%81%99%e3%82%8b)
-    - [Storybook for React(Create React App 用)](#storybook-for-reactcreate-react-app-%e7%94%a8)
+    - [Storybook の導入（Create React App 用）](#storybook-%e3%81%ae%e5%b0%8e%e5%85%a5create-react-app-%e7%94%a8)
+      - [MDX で Storybook ドキュメントを作成する](#mdx-%e3%81%a7-storybook-%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90%e3%81%99%e3%82%8b)
+      - [Storybook Deployer を使って GitHub Pages へ Storybook をデプロイする](#storybook-deployer-%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6-github-pages-%e3%81%b8-storybook-%e3%82%92%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%99%e3%82%8b)
     - [Docker 上で開発環境をセットアップする](#docker-%e4%b8%8a%e3%81%a7%e9%96%8b%e7%99%ba%e7%92%b0%e5%a2%83%e3%82%92%e3%82%bb%e3%83%83%e3%83%88%e3%82%a2%e3%83%83%e3%83%97%e3%81%99%e3%82%8b)
   - [VSCode の設定について](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6)
     - [拡張機能の管理](#%e6%8b%a1%e5%bc%b5%e6%a9%9f%e8%83%bd%e3%81%ae%e7%ae%a1%e7%90%86)
@@ -974,19 +977,19 @@ export const Header: React.FC<Props> = () => {
 React Helmet の使い方  
 <https://github.com/nfl/react-helmet#example>
 
-### Storybook for React(Create React App 用)
+### Storybook の導入（Create React App 用）
 
-以下のコマンドを実行すると、Storybook を動かすのに必要なパッケージやファイル・コマンド群をすべて自動で用意してくれます（TypeScript への対応もやってくれる）。
+以下のコマンドを実行すると、Storybook を動かすのに必要なパッケージやファイル・コマンド群をすべて自動で用意してくれる（TypeScript への対応もやってくれるため、**他に設定はいらない**）。
 
 ```bash
 npx -p @storybook/cli sb init --type react_scripts
 ```
 
-`.storybook/main.js` ファイルを以下の通り書き換える。`stories: ['../src/**/*.stories.js']` を `stories: ['../src/**/*.stories.tsx']` に変更するだけ。
+`.storybook/main.js` ファイルを以下の通り書き換える。`.js` を `.(js|jsx|ts|tsx)` に変更するだけ。
 
 ```js
 module.exports = {
-  stories: ['../src/**/*.stories.tsx'],
+  stories: ['../src/**/*.stories.(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/preset-create-react-app',
     '@storybook/addon-actions',
@@ -998,6 +1001,53 @@ module.exports = {
 **参考文献**  
 [Storybook - Storybook for React](https://storybook.js.org/docs/guides/guide-react/)  
 [Storybook - TypeScript Config](https://storybook.js.org/docs/configurations/typescript-config/)
+
+#### MDX で Storybook ドキュメントを作成する
+
+以下のコマンドを実行して、Storybook Docs のアドオンをインストールする。
+
+```bash
+yarn add -D @storybook/addon-docs
+```
+
+Storybook の設定ファイル `.storybook/main.js` に以下の設定を追加する。
+
+```js
+module.exports = {
+  stories: ['../src/**/*.stories.(js|jsx|ts|tsx|mdx)'],
+  addons: ['@storybook/addon-docs'],
+};
+```
+
+**参考資料**
+[Storybook Docs - インストール方法](https://github.com/storybookjs/storybook/blob/next/addons/docs/README.md#installation)
+
+#### Storybook Deployer を使って GitHub Pages へ Storybook をデプロイする
+
+以下のコマンドを実行して、Storybook Deployer をインストールする。
+
+```bash
+yarn add -D @storybook/storybook-deployer
+```
+
+`package.json` ファイルに以下のコマンドを追加する。
+
+```json
+{
+  "scripts": {
+    "deploy-storybook": "storybook-to-ghpages"
+  }
+}
+```
+
+以下のコマンドを実行して、GitHub Pages へ Storybook をデプロイする。
+
+```bash
+yarn deploy-storybook
+```
+
+**参考資料**
+[Storybook Deployer - インストール方法](https://github.com/storybookjs/storybook-deployer)
 
 ### Docker 上で開発環境をセットアップする
 
@@ -1029,10 +1079,10 @@ services:
 ```json
 {
   "scripts": {
-    "dbuild": "docker-compose build",
-    "dinstall": "docker-compose run --rm web sh -c 'yarn install'",
-    "drun": "docker-compose up",
-    "dstop": "docker-compose down"
+    "docker:build": "docker-compose build",
+    "docker:install": "docker-compose run --rm web sh -c 'yarn install'",
+    "docker:run": "docker-compose up",
+    "docker:stop": "docker-compose down"
   }
 }
 ```

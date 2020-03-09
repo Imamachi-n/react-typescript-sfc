@@ -27,7 +27,7 @@ const Button: React.FC<Props> = props => {
 };
 
 // 4. Style Layer
-const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)`
   box-sizing: inherit;
   transition-property: all;
   transition-duration: 0.6s;
