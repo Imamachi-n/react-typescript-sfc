@@ -10,6 +10,8 @@
 - [Typescript & React で Single File Components](#typescript--react-%e3%81%a7-single-file-components)
   - [目次](#%e7%9b%ae%e6%ac%a1)
   - [デモ](#%e3%83%87%e3%83%a2)
+    - [URL（デプロイ先）](#url%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e5%85%88)
+    - [画面スクリーンショット](#%e7%94%bb%e9%9d%a2%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88)
       - [トップページ - スクロール](#%e3%83%88%e3%83%83%e3%83%97%e3%83%9a%e3%83%bc%e3%82%b8---%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab)
       - [レスポンシブ UI（Mobile 用と Desktop 用）](#%e3%83%ac%e3%82%b9%e3%83%9d%e3%83%b3%e3%82%b7%e3%83%96-uimobile-%e7%94%a8%e3%81%a8-desktop-%e7%94%a8)
   - [詳細](#%e8%a9%b3%e7%b4%b0)
@@ -50,6 +52,7 @@
     - [React Helmet の導入](#react-helmet-%e3%81%ae%e5%b0%8e%e5%85%a5)
       - [ヘッダー情報を追加する](#%e3%83%98%e3%83%83%e3%83%80%e3%83%bc%e6%83%85%e5%a0%b1%e3%82%92%e8%bf%bd%e5%8a%a0%e3%81%99%e3%82%8b)
     - [Storybook の導入（Create React App 用）](#storybook-%e3%81%ae%e5%b0%8e%e5%85%a5create-react-app-%e7%94%a8)
+      - [Storybook の作成](#storybook-%e3%81%ae%e4%bd%9c%e6%88%90)
       - [MDX で Storybook ドキュメントを作成する](#mdx-%e3%81%a7-storybook-%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90%e3%81%99%e3%82%8b)
       - [Storybook Deployer を使って GitHub Pages へ Storybook をデプロイする](#storybook-deployer-%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%a6-github-pages-%e3%81%b8-storybook-%e3%82%92%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%99%e3%82%8b)
     - [Docker 上で開発環境をセットアップする](#docker-%e4%b8%8a%e3%81%a7%e9%96%8b%e7%99%ba%e7%92%b0%e5%a2%83%e3%82%92%e3%82%bb%e3%83%83%e3%83%88%e3%82%a2%e3%83%83%e3%83%97%e3%81%99%e3%82%8b)
@@ -58,6 +61,7 @@
     - [VSCode の設定の管理](#vscode-%e3%81%ae%e8%a8%ad%e5%ae%9a%e3%81%ae%e7%ae%a1%e7%90%86)
   - [既存の React プロジェクトのアップデート](#%e6%97%a2%e5%ad%98%e3%81%ae-react-%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%81%ae%e3%82%a2%e3%83%83%e3%83%97%e3%83%87%e3%83%bc%e3%83%88)
     - [Create React App](#create-react-app)
+    - [Storybook](#storybook)
     - [React などの他のパッケージのアップグレード](#react-%e3%81%aa%e3%81%a9%e3%81%ae%e4%bb%96%e3%81%ae%e3%83%91%e3%83%83%e3%82%b1%e3%83%bc%e3%82%b8%e3%81%ae%e3%82%a2%e3%83%83%e3%83%97%e3%82%b0%e3%83%ac%e3%83%bc%e3%83%89)
   - [参考資料](#%e5%8f%82%e8%80%83%e8%b3%87%e6%96%99)
   - [公式ドキュメント](#%e5%85%ac%e5%bc%8f%e3%83%89%e3%82%ad%e3%83%a5%e3%83%a1%e3%83%b3%e3%83%88)
@@ -65,6 +69,16 @@
 <!-- /TOC -->
 
 ## デモ
+
+### URL（デプロイ先）
+
+**Storybook**  
+<https://imamachi-n.github.io/react-typescript-sfc/>
+
+**Web アプリケーション**  
+準備中。。。
+
+### 画面スクリーンショット
 
 #### トップページ - スクロール
 
@@ -1002,6 +1016,57 @@ module.exports = {
 [Storybook - Storybook for React](https://storybook.js.org/docs/guides/guide-react/)  
 [Storybook - TypeScript Config](https://storybook.js.org/docs/configurations/typescript-config/)
 
+#### Storybook の作成
+
+ここでは、`Component Story Format (CSF)` での記述方法を説明する。
+
+以下に例を示す。
+
+```tsx
+import React from 'react';
+import { action } from '@storybook/addon-actions';
+import { StyledBottomNavi } from 'components/BottomNavigation';
+
+export default {
+  title: 'BottomNavi',
+  component: StyledBottomNavi,
+};
+
+export const BottomNavi = () => (
+  <StyledBottomNavi
+    handleClick4Home={action('Home')}
+    handleClick4Scroll={action('Scroll')}
+    handleClick4Todo={action('Todo')}
+    handleClick4Api={action('Api')}
+  />
+);
+```
+
+**export default**
+
+| プロパティ | 説明                                                   |
+| ---------- | ------------------------------------------------------ |
+| tille      | サイドメニューに表示されるタイトル（詳細は下記参照）。 |
+| component  | 対象のコンポーネントを指定。                           |
+
+タイトルは、以下のように変換される。
+
+```
+name -> 'Name'
+someName -> 'Some Name'
+someNAME -> 'Some NAME'
+some_custom_NAME -> 'Some Custom NAME'
+someName1234 -> 'Some Name 1234'
+someName1_2_3_4 -> 'Some Name 1 2 3 4'
+```
+
+**export**
+
+あとは、表示させたいコンポーネントを `export` するだけ。表示されるコンポーネント名は、`export` したときの変数名で決まる（タイトル名の変換は上記と同様）。
+
+**参考資料**  
+[Storybook - Component Story Format (CSF)](https://storybook.js.org/docs/formats/component-story-format/)
+
 #### MDX で Storybook ドキュメントを作成する
 
 以下のコマンドを実行して、Storybook Docs のアドオンをインストールする。
@@ -1019,8 +1084,57 @@ module.exports = {
 };
 ```
 
-**参考資料**
-[Storybook Docs - インストール方法](https://github.com/storybookjs/storybook/blob/next/addons/docs/README.md#installation)
+以下に例を示す。
+
+```mdx
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { StyledBottomNavi } from 'components/BottomNavigation';
+
+<Meta title="MDX/BottomNavi" component={StyledBottomNavi} />
+
+# Bottom Navi
+
+With `MDX` we can define a story for `BottomNavi` right in the middle of our
+markdown documentation.
+
+<Preview>
+  <Story name="Botom Navi">
+    <StyledBottomNavi
+      handleClick4Home={action('Home')}
+      handleClick4Scroll={action('Scroll')}
+      handleClick4Todo={action('Todo')}
+      handleClick4Api={action('Api')}
+    />
+  </Story>
+</Preview>
+```
+
+**`<Meta>` タグ**
+
+| 属性      | 説明                                                                                   |
+| --------- | -------------------------------------------------------------------------------------- |
+| title     | サイドメニューに表示されるコンポーネント名を記載。`/` で区切ることで階層も表現できる。 |
+| component | 対象のコンポーネントを指定                                                             |
+
+**`<Preview>` タグ**
+
+| 属性       | 説明                                                          |
+| ---------- | ------------------------------------------------------------- |
+| withSource | ソースコードをデフォルトで表示させるかどうか（open/closed）。 |
+
+**`<story>` タグ**
+
+| 属性 | 説明                                         |
+| ---- | -------------------------------------------- |
+| name | サイドメニューに表示されるコンポーネント名。 |
+
+このタグ内に、表示させたいコンポーネントを追加する。
+
+**参考資料**  
+[Storybook Docs - インストール方法](https://github.com/storybookjs/storybook/blob/next/addons/docs/README.md#installation)  
+[Storybook Docs MDX](https://github.com/storybookjs/storybook/blob/next/addons/docs/docs/mdx.md)  
+[Storybook の新しいアドオン addon-docs がいい感じ](https://qiita.com/takeyuichi/items/d21cb0a884e5aaac3a17)
 
 #### Storybook Deployer を使って GitHub Pages へ Storybook をデプロイする
 
@@ -1046,7 +1160,9 @@ yarn add -D @storybook/storybook-deployer
 yarn deploy-storybook
 ```
 
-**参考資料**
+GitHub Settings の GitHub Pages の項目で、`gh-pages` ブランチを使って、静的 HTML ファイルをデプロイする設定になっていることを確認。
+
+**参考資料**  
 [Storybook Deployer - インストール方法](https://github.com/storybookjs/storybook-deployer)
 
 ### Docker 上で開発環境をセットアップする
@@ -1087,10 +1203,10 @@ services:
 }
 ```
 
-`yarn dbuild` で Docker コンテナをビルドする。  
-`yarn dinstall` で Docker コンテナ内で`yarn install` を実行する（少なくとも、Docker for MacOS では遅くて使い物にならない…。10 数分かかる…）。  
-`yarn drun` で Docker コンテナを起動する。  
-`yarn dstop` で Docker コンテナを停止する。
+`yarn docker:build` で Docker コンテナをビルドする。  
+`yarn docker:install` で Docker コンテナ内で`yarn install` を実行する（少なくとも、Docker for MacOS では遅くて使い物にならない…。10 数分かかる…）。  
+`yarn docker:run` で Docker コンテナを起動する。  
+`yarn docker:stop` で Docker コンテナを停止する。
 
 Docker 環境内で create-react-app  
 <https://qiita.com/mii288/items/aac597bc02575831ea90>
@@ -1137,6 +1253,12 @@ Create React App をアップデートする場合、[Change Log](https://github
 Updating to New Releases  
 <https://create-react-app.dev/docs/updating-to-new-releases/>
 
+### Storybook
+
+Storybook をアップデートする場合、[Migration](https://github.com/storybookjs/storybook/blob/next/MIGRATION.md) に記載されている内容をもとにマイグレーションを行う。
+
+Storybook v5 以降、TypeScript へのデフォルト対応などを始めとするプリセット周りの整備が進み、更新頻度が高め。
+
 ### React などの他のパッケージのアップグレード
 
 以下のコマンドを実行することで、すべての依存パッケージのアップグレードを行うことができる。
@@ -1167,3 +1289,4 @@ Upgrade for Minor or Patch Releases
 - [Prettier](https://prettier.io/)
 - [Styled-components](https://styled-components.com/)
 - [Material UI](https://material-ui.com/)
+- [Storybook](https://storybook.js.org/)
