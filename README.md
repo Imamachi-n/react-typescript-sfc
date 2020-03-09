@@ -1,7 +1,7 @@
 # Typescript & React で Single File Components
 
 経年劣化に耐える React のソフトウェア設計を考えるためのサンプルプロジェクト。  
-また、学習目的で、実際に React を使ってアプリケーション開発を行う上で必要だと思ったものをまとめてみました。
+学習目的で、実際に React を使ってアプリケーション開発を行う上で必要だと思ったものをまとめてみました。
 
 ## 目次
 
@@ -14,6 +14,9 @@
     - [画面スクリーンショット](#%e7%94%bb%e9%9d%a2%e3%82%b9%e3%82%af%e3%83%aa%e3%83%bc%e3%83%b3%e3%82%b7%e3%83%a7%e3%83%83%e3%83%88)
       - [トップページ - スクロール](#%e3%83%88%e3%83%83%e3%83%97%e3%83%9a%e3%83%bc%e3%82%b8---%e3%82%b9%e3%82%af%e3%83%ad%e3%83%bc%e3%83%ab)
       - [レスポンシブ UI（Mobile 用と Desktop 用）](#%e3%83%ac%e3%82%b9%e3%83%9d%e3%83%b3%e3%82%b7%e3%83%96-uimobile-%e7%94%a8%e3%81%a8-desktop-%e7%94%a8)
+  - [設計・アーキテクチャ](#%e8%a8%ad%e8%a8%88%e3%83%bb%e3%82%a2%e3%83%bc%e3%82%ad%e3%83%86%e3%82%af%e3%83%81%e3%83%a3)
+    - [Single File Components for React](#single-file-components-for-react)
+    - [CloudFront/S3 with AWS CDK](#cloudfronts3-with-aws-cdk)
   - [詳細](#%e8%a9%b3%e7%b4%b0)
     - [TypeScript & React のプロジェクトを作成](#typescript--react-%e3%81%ae%e3%83%97%e3%83%ad%e3%82%b8%e3%82%a7%e3%82%af%e3%83%88%e3%82%92%e4%bd%9c%e6%88%90)
     - [絶対パスで React コンポーネントをインポートできるようにする](#%e7%b5%b6%e5%af%be%e3%83%91%e3%82%b9%e3%81%a7-react-%e3%82%b3%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%8d%e3%83%b3%e3%83%88%e3%82%92%e3%82%a4%e3%83%b3%e3%83%9d%e3%83%bc%e3%83%88%e3%81%a7%e3%81%8d%e3%82%8b%e3%82%88%e3%81%86%e3%81%ab%e3%81%99%e3%82%8b)
@@ -25,6 +28,7 @@
       - [eslint-plugin-jsx-a11y](#eslint-plugin-jsx-a11y)
       - [eslint-plugin-jest](#eslint-plugin-jest)
       - [eslint-plugin-prefer-arrow](#eslint-plugin-prefer-arrow)
+      - [eslint-plugin-mdx](#eslint-plugin-mdx)
       - [@typescript-eslint](#typescript-eslint)
       - [@typescript-eslint/parser](#typescript-eslintparser)
       - [@typescript-eslint/eslint-plugin](#typescript-eslinteslint-plugin)
@@ -72,10 +76,10 @@
 
 ### URL（デプロイ先）
 
-**Storybook**  
+**Storybook - スタイルガイド（GitHub Pages）**  
 <https://imamachi-n.github.io/react-typescript-sfc/>
 
-**Web アプリケーション**  
+**React アプリケーション（AWS: CloudFront/S3）**  
 準備中。。。
 
 ### 画面スクリーンショット
@@ -93,6 +97,19 @@
 - Mobile 用の画面では、ナビゲーションをページ下部に表示させる（指で押しやすいため）。
 
 ![React_SFC_2](./img/React_SFC_2.gif)
+
+## 設計・アーキテクチャ
+
+### Single File Components for React
+
+準備中。
+
+**参考資料**  
+[経年劣化に耐える ReactComponent の書き方](https://qiita.com/Takepepe/items/41e3e7a2f612d7eb094a)
+
+### CloudFront/S3 with AWS CDK
+
+準備中。
 
 ## 詳細
 
@@ -158,6 +175,7 @@ eslint-plugin-react-hooks
 eslint-plugin-jsx-a11y \
 eslint-plugin-jest \
 eslint-plugin-prefer-arrow \
+eslint-plugin-mdx \
 eslint-plugin-prettier \
 @types/eslint-plugin-prettier
 ```
@@ -181,7 +199,7 @@ eslint-config-airbnb の導入
 
 #### eslint-plugin-react
 
-`eslint-plugin-react` は React 固有の Linting の設定を追加するためのプラグイン。使用するために、`extends` と `plugins` に設定を追加する。
+`eslint-plugin-react` は React 固有の lint の設定を追加するためのプラグイン。使用するために、`extends` と `plugins` に設定を追加する。
 
 ```js
 extends: [
@@ -219,7 +237,7 @@ eslint-plugin-react の設定
 
 #### eslint-plugin-react-hooks
 
-`eslint-plugin-react-hooks`は、React Hook に対する linting を設定するためのプラグイン。マニュアル設定を適応する場合、以下のように設定する。
+`eslint-plugin-react-hooks`は、React Hook に対する lint を設定するためのプラグイン。マニュアル設定を適応する場合、以下のように設定する。
 
 ```js
 plugins: [
@@ -234,7 +252,7 @@ rules: {
 
 #### eslint-plugin-import
 
-`eslint-plugin-import` は ES2015+ (ES6+) import/export syntax の linting に使われる。
+`eslint-plugin-import` は ES2015+ (ES6+) import/export syntax の lint に使われる。
 デフォルトではすべてのルールが無効化されているので、`extends` 内でプラグインの設定を行うか、
 
 ```js
@@ -309,7 +327,7 @@ eslint-plugin-import の設定
 
 #### eslint-plugin-jsx-a11y
 
-`eslint-plugin-jsx-a11y` は Web アクセシビリティに関する linting を行うためのプラグイン。`plugins` で以下のように設定する。
+`eslint-plugin-jsx-a11y` は Web アクセシビリティに関する lint を行うためのプラグイン。`plugins` で以下のように設定する。
 
 ```js
 "plugins": [
@@ -330,7 +348,7 @@ eslint-plugin-jsx-a11y の使い方
 
 #### eslint-plugin-jest
 
-`eslint-plugin-jest` は Jest に対する linting を行うためのプラグイン。以下では、推奨設定とスタイルを強制する設定を示した。
+`eslint-plugin-jest` は Jest に対する lint を行うためのプラグイン。以下では、推奨設定とスタイルを強制する設定を示した。
 
 ```js
 extends: [
@@ -356,7 +374,7 @@ eslint-plugin-jest の使い方
 
 #### eslint-plugin-prefer-arrow
 
-`eslint-plugin-prefer-arrow` はアロー関数に関する linting を行うためのプラグイン。以下のように設定を行う。
+`eslint-plugin-prefer-arrow` はアロー関数に関する lint を行うためのプラグイン。以下のように設定を行う。
 
 ```js
 plugins: [
@@ -378,6 +396,19 @@ rules: {
 eslint-plugin-prefer-arrow の使い方  
 <https://github.com/TristonJ/eslint-plugin-prefer-arrow#installations>
 
+#### eslint-plugin-mdx
+
+`eslint-plugin-mdx` は MDX ファイル（JSX/TSX 内に markdown ファイルがかけるようにした拡張構文）を lint するためのプラグイン。以下のように設定を行う。
+
+```js
+{
+  extends: ["plugin:mdx/recommended"]
+}
+```
+
+eslint-plugin-mdx の使い方  
+<https://github.com/mdx-js/eslint-mdx#install>
+
 #### @typescript-eslint
 
 #### @typescript-eslint/parser
@@ -395,7 +426,7 @@ parserOptions: {
 
 #### @typescript-eslint/eslint-plugin
 
-`@typescript-eslint/eslint-plugin` は TypeScript の linting を行うためのプラグイン。`@typescript-eslint/parser` がインストールされていることが前提。推奨設定は以下のように設定を行う。
+`@typescript-eslint/eslint-plugin` は TypeScript の lint を行うためのプラグイン。`@typescript-eslint/parser` がインストールされていることが前提。推奨設定は以下のように設定を行う。
 
 ```js
 extends: [
@@ -505,7 +536,7 @@ yarn add husky lint-staged
 
 #### lint-staged
 
-`lint-staged` を使うことで、staged git ファイルのみに対して linting をコマンドで実行することができる。
+`lint-staged` を使うことで、staged git ファイルのみに対して lint をコマンドで実行することができる。
 
 ```json
 {

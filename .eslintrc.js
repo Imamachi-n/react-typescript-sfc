@@ -29,6 +29,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended', // eslint-plugin-jsx-a11y
     'plugin:jest/recommended', // eslint-plugin-jest
     'plugin:jest/style', // eslint-plugin-jest
+    'plugin:mdx/recommended', //eslint-plugin-mdx
     'plugin:import/errors', // eslint-plugin-import
     'plugin:import/warnings', // eslint-plugin-import
     'plugin:import/typescript', // @typescript-eslint/eslint-plugin
